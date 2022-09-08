@@ -1,0 +1,17 @@
+.welcome{
+    background-color: rgb(255, 166, 0);
+}
+.welcome img {
+    width: 30vw;
+}/* 414x736 */
+
+
+@media only screen and (max-width: 414px) {
+    .welcome{
+        background-color: blue;
+    }
+    .welcome img {
+        width: 30vw;
+    }
+}
+
