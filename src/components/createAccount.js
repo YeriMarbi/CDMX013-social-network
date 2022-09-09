@@ -1,4 +1,6 @@
 import { onNavigate } from '../main.js';
+import { auth } from '../lib/auth.js';
+import{createUserWithEmailAndPassword} from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js'
 
 export const createAccount = () => {
 
@@ -35,15 +37,30 @@ export const createAccount = () => {
     onNavigate('/');
   });
 
+
+
+
   sendButton.addEventListener('click', (e) => {
     e.preventDefault;
-    let email = document.getElementById('inputEmail').value;
-    let password = document.getElementById('inputPassword').value;
-    console.log(email)
-    console.log(password)
-  });
 
+    const email = document.getElementById('inputEmail').value;
+    const password = document.getElementById('inputPassword').value;
+
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console
+      // ..
+    });
+  });
 
   divcreateAccount.append(returnButton, userName, user, email, inputEmail, password, inputPassword, sendButton, imgLogo);
   return divcreateAccount;
 };
+
