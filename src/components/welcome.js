@@ -11,7 +11,7 @@ export const welcome = () => {
   buttonSignIn.className = 'btnWelcome'
   const title = document.createElement('img');
   title.src = './img/comuniapp.png'
-  title.className='nameApp'
+  title.className = 'nameApp'
   const subtitle = document.createElement('h2');
   const description = document.createElement('p');
   const welcomeImage = document.createElement('img');

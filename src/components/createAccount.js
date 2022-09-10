@@ -1,11 +1,11 @@
 import { onNavigate } from '../main.js';
 import { auth } from '../lib/auth.js';
-import{createUserWithEmailAndPassword} from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js'
+import { createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js'
 
 export const createAccount = () => {
 
   const divcreateAccount = document.createElement('div');
-  divcreateAccount.setAttribute ('id', 'createAccount');
+  divcreateAccount.setAttribute('id', 'createAccount');
   const user = document.createElement('input');
   const userName = document.createElement('p');
   const email = document.createElement('p');
@@ -14,18 +14,20 @@ export const createAccount = () => {
   inputEmail.setAttribute('type', 'email');
   inputEmail.className = 'emailRegister'
   inputEmail.setAttribute('placeholder', 'correo electronico');
-  inputEmail.setAttribute ('id', 'inputEmail');
+  inputEmail.setAttribute('id', 'inputEmail');
   const inputPassword = document.createElement('input');
   inputPassword.setAttribute('type', 'password');
   inputPassword.setAttribute('placeholder', 'min. 6 caracteres');
-  inputPassword.setAttribute ('id', 'inputPassword');
+  inputPassword.setAttribute('id', 'inputPassword');
   const returnButton = document.createElement('button');
   returnButton.setAttribute('id', 'btnReturn');
-  returnButton.src= './img/comuniapp.png'
+  returnButton.src = './img/comuniapp.png'
   const sendButton = document.createElement('button');
   sendButton.setAttribute('id', 'btnSend');
   const imgLogo = document.createElement('img');
   imgLogo.src = './img/logo.png'
+  const messageError = document.createElement('p');
+  messageError.setAttribute('id', 'pError');
 
   userName.textContent = 'Nombre de Usuario';
   email.textContent = 'Correo electronico';
@@ -37,30 +39,32 @@ export const createAccount = () => {
     onNavigate('/');
   });
 
-
-
-
   sendButton.addEventListener('click', (e) => {
     e.preventDefault;
 
     const email = document.getElementById('inputEmail').value;
     const password = document.getElementById('inputPassword').value;
 
+
     createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user;
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console
-      // ..
-    });
+      .then((userCredential) => {
+        onNavigate('/homepage');
+       
+        const user = userCredential.user;
+       
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        if ((email === '') || (password === '')) {
+          messageError.innerHTML = 'hay un campo vacio'
+        }
+      });
   });
 
-  divcreateAccount.append(returnButton, userName, user, email, inputEmail, password, inputPassword, sendButton, imgLogo);
+
+  divcreateAccount.append(returnButton, userName, user, email, inputEmail, password, inputPassword, sendButton, imgLogo, messageError);
   return divcreateAccount;
 };
 
