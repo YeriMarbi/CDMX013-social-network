@@ -4,9 +4,14 @@ export const welcome = () => {
   const div = document.createElement('div');
   div.className = 'welcome';
   const buttonCreateAccount = document.createElement('button');
+  buttonCreateAccount.className = 'btnWelcome'
   const buttonSignInGoogle = document.createElement('button');
+  buttonSignInGoogle.className = 'btngoogle'
   const buttonSignIn = document.createElement('button');
-  const title = document.createElement('h1');
+  buttonSignIn.className = 'btnWelcome'
+  const title = document.createElement('img');
+  title.src = './img/comuniapp.png'
+  title.className = 'nameApp'
   const subtitle = document.createElement('h2');
   const description = document.createElement('p');
   const welcomeImage = document.createElement('img');

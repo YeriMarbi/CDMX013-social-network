@@ -1,11 +1,15 @@
 import { welcome } from './components/welcome.js';
 import { createAccount } from './components/createAccount.js';
+import { login } from './components/login.js'
+import { homepage } from './components/homepage.js';
 
 const root = document.getElementById('root');
 
 const routes = {
   '/': welcome,
   '/createAccount': createAccount,
+  '/login': login,
+  '/homepage': homepage
 };
 
 export const onNavigate = (pathname) => {
