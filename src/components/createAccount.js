@@ -27,7 +27,11 @@ export const createAccount = () => {
   const imgLogo = document.createElement('img');
   imgLogo.src = './img/logo.png';
   const messageError = document.createElement('p');
-  messageError.setAttribute('id', 'pError');
+  // messageError.setAttribute('id', 'pError');
+  messageError.className = 'messageError';
+  const messageErrorPassword = document.createElement('p');
+  // messageError.setAttribute('id', 'pError');
+  messageErrorPassword.className = 'messageError';
 
   userName.textContent = 'Nombre de Usuario';
   email.textContent = 'Correo electronico';
@@ -40,15 +44,31 @@ export const createAccount = () => {
   });
 
   sendButton.addEventListener('click', (e) => {
-    e.preventDefault;
+    e.preventDefault();
 
     const emailValue = document.getElementById('inputEmail').value;
     const passwordValue = document.getElementById('inputPassword').value;
 
-    register(emailValue, passwordValue);
+    if (emailValue === '') {
+      messageError.innerHTML = 'Ingresa un correo electronico';
+    }
+
+    if (passwordValue === '') {
+      messageErrorPassword.innerHTML = 'Ingresa una contraseña';
+    }
+
+    register(emailValue, passwordValue)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        onNavigate('/homepage');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
   });
 
   // eslint-disable-next-line max-len
-  divcreateAccount.append(returnButton, userName, user, email, inputEmail, password, inputPassword, sendButton, imgLogo, messageError);
+  divcreateAccount.append(returnButton, userName, user, email, inputEmail, messageError, password, inputPassword, messageErrorPassword, sendButton, imgLogo);
   return divcreateAccount;
 };

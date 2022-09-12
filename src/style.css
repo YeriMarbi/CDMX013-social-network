@@ -10,10 +10,9 @@
     
     .welcomeImg {
         width: 30vw;
-    left: 25vh;
-    top: 35vh;
-    position: fixed;
-       
+        left: 25vh;
+        top: 35vh;
+        position: fixed;
     }
     .nameApp {
         width: 25vw;
@@ -242,5 +241,14 @@
         background: transparent;
         margin-top: -28vw;
         position: absolute;
+    }
+    .messageError {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        text-align: center;
+        color: rgb(169, 8, 8);
+        background-color:rgba(238, 147, 147, 0.638);
+        width: 25vh;
+        align-self: center;
     }
 }
