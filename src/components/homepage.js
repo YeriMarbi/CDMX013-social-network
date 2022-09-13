@@ -1,11 +1,11 @@
 // import { onNavigate } from "../main.js";
 
 export const homepage = () => {
-  const div = document.createElement('div');
-  div.className = 'welcome';
-  const returnButton = document.createElement('button');
-  returnButton.setAttribute('id', 'btnReturn0');
-
-  div.append(returnButton);
-  return div;
+  const divHomePage = document.createElement('div');
+  divHomePage.className = 'welcome';
+  const message = document.createElement('h1');
+ 
+message.textContent = 'En Construcción...';
+divHomePage.append(message);
+  return divHomePage;
 };

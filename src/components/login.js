@@ -5,37 +5,37 @@ export const login = () => {
   divLogin.className = 'login';
   const email = document.createElement('p');
   const password = document.createElement('p');
-
   const inputEmail = document.createElement('input');
   inputEmail.setAttribute('type', 'email');
   inputEmail.className = 'emailLogin';
   inputEmail.setAttribute('placeholder', 'correo electronico');
-  inputEmail.setAttribute('id', 'inputEmail');
-
+  inputEmail.setAttribute('id', 'inputEmailLogin');
   const inputPassword = document.createElement('input');
   inputPassword.setAttribute('type', 'password');
   inputPassword.setAttribute('placeholder', 'min. 6 caracteres');
-  inputPassword.setAttribute('id', 'inputPassword');
-
+  inputPassword.setAttribute('id', 'inputPasswordLogin');
   const returnButton = document.createElement('button');
-  returnButton.setAttribute('id', 'btnReturn');
+  returnButton.setAttribute('id', 'btnReturnLogin');
   returnButton.src = './img/comuniapp.png';
-
   const sendButton = document.createElement('button');
-  sendButton.setAttribute('id', 'btnSend');
+  sendButton.setAttribute('id', 'btnSendlogin');
   const imgLogo = document.createElement('img');
   imgLogo.src = './img/logo.png';
+  imgLogo.setAttribute('id', 'logoImg')
+  const messageErrorPassword = document.createElement('p');
+  messageErrorPassword.className = 'messageError';
+  const messageError = document.createElement('p');
+  messageError.className = 'messageError';
 
   email.textContent = 'Correo electronico';
   password.textContent = 'Contraseña';
-  sendButton.textContent = 'Enviar';
+  sendButton.textContent = 'INGRESAR';
   returnButton.textContent = 'Regresar';
 
   returnButton.addEventListener('click', () => {
     onNavigate('/');
   });
 
-  // eslint-disable-next-line max-len
-  divLogin.append(email, password, inputEmail, inputPassword, returnButton, sendButton);
+  divLogin.append(returnButton, imgLogo, email, inputEmail,  messageError, password, inputPassword, messageErrorPassword, sendButton);
   return divLogin;
 };

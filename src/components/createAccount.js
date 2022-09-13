@@ -1,13 +1,9 @@
-// import { createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js';
 import { onNavigate } from '../main.js';
 import { register } from '../lib/auth.js';
-import {registerWithGoogle} from '../lib/auth.js';
 
 export const createAccount = () => {
   const divcreateAccount = document.createElement('div');
   divcreateAccount.setAttribute('id', 'createAccount');
-  const user = document.createElement('input');
-  const userName = document.createElement('p');
   const email = document.createElement('p');
   const password = document.createElement('p');
   const inputEmail = document.createElement('input');
@@ -27,16 +23,13 @@ export const createAccount = () => {
   const imgLogo = document.createElement('img');
   imgLogo.src = './img/logo.png';
   const messageError = document.createElement('p');
-  // messageError.setAttribute('id', 'pError');
   messageError.className = 'messageError';
   const messageErrorPassword = document.createElement('p');
-  // messageError.setAttribute('id', 'pError');
   messageErrorPassword.className = 'messageError';
 
-  userName.textContent = 'Nombre de Usuario';
   email.textContent = 'Correo electronico';
   password.textContent = 'Contraseña';
-  sendButton.textContent = 'Enviar';
+  sendButton.textContent = 'REGISTRARSE';
   returnButton.textContent = 'Regresar';
 
   returnButton.addEventListener('click', () => {
@@ -68,7 +61,6 @@ export const createAccount = () => {
       });
   });
 
-  // eslint-disable-next-line max-len
-  divcreateAccount.append(returnButton, userName, user, email, inputEmail, messageError, password, inputPassword, messageErrorPassword, sendButton, imgLogo);
+  divcreateAccount.append(returnButton,  imgLogo, email, inputEmail, messageError, password, inputPassword, messageErrorPassword, sendButton);
   return divcreateAccount;
 };
