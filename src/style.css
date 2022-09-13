@@ -1,23 +1,254 @@
-*{
-    background-image: url(./img/web_background.png);
-}
-.welcome{
-    background-color: rgb(255, 166, 0);
-}
-.welcome img {
-    width: 30vw;
-}/* 414x736 */
+@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@300&family=Liu+Jian+Mao+Cao&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Yantramanav:wght@300&display=swap');
 
-
-@media only screen and (max-width: 414px) {
-    *{
-        background-image: url(./img/fondo.png);
+@media only screen and (min-width: 1000px) {
+    body {
+        background-image: url(./img/web_background.png);
     }
-    .welcome{
-        background-color: blue;
-    }
-    .welcome img {
+    
+    .welcomeImg {
         width: 30vw;
+        left: 25vh;
+        top: 35vh;
+        position: fixed;
+    }
+    .nameApp {
+        width: 25vw;
+        position: fixed;
+        top: 15vh;
+        left: 30vh;
+    }
+    h2 {
+        font-family: 'Liu Jian Mao Cao', cursive;
+        color: rgb(21, 48, 76);
+        font-size: 1.8em;
+        font-weight: bold;
+        position: fixed;
+        top: 27vh;
+        left: 35vh;
+    }
+    
+    /* 414x736 */
+    #btnReturn {
+        width: 300px;
+    }
+    .btnRegister {
+        width: 30vw;
+        height: 6vh;
+        margin: 1vh;
+        border-radius: 10px;
+        color: rgb(6, 28, 50);
+        background-color: rgb(255, 255, 255);
+        font-family: 'Quicksand', sans-serif;
+        position: fixed;
+        top: 20vw;
+        left: 60vw;
+    }
+    .btnSignIn {
+        width: 30vw;
+        height: 6vh;
+        margin: 1vh;
+        border-radius: 10px;
+        color: rgb(6, 28, 50);
+        background-color: rgb(255, 255, 255);
+        font-family: 'Quicksand', sans-serif;
+        position: fixed;
+        top: 30vw;
+        left: 60vw;
+    }
+    
+    .btngoogle {
+        width: 30vw;
+        height: 6vh;
+        margin: 1vh;
+        border-radius: 10px;
+        color: rgb(6, 28, 50);
+        background-color: rgb(255, 255, 255);
+        font-family: 'Quicksand', sans-serif;
+        background-image: url('./img/btn_google.png');
+        background-size: 3vw;
+        background-position: 6vw;
+        background-repeat: no-repeat;
+        position: fixed;
+        top: 25vw;
+        left: 60vw;
+    }
+    
+    p {
+        font-family: 'Catamaran', sans-serif;
+        font-size: 1.4em;
+        font-weight: bolder;
+        color: rgb(6, 28, 50);
+        position: fixed;
+        top: 43vw;
+        left: 23vh;
+    }
+    #createAccount {
+        padding-left: 10vw;
+        display: flex;
+        flex-direction: column;
+        
+        margin-top: 20vh;
+        position: absolute;
+    }
+    
+    #createAccount p {
+        font-family: 'Yantramanav', sans-serif;
+    }
+    
+    #createAccount img {
+        width: 5vw;
+        opacity: 0.5;
+        align-self: center;
+        margin-top: 25vh;
+    }
+    
+    #createAccount input {
+        width: 75vw;
+        height: 5vh;
+        opacity: 0.6;
+        border-radius: 5px;
+    }
+    
+    #createAccount button {
+        width: 20vw;
+        align-self: flex-end;
+       margin-top: 2vh;
+    }
+    
+    #createAccount #btnReturn {
+        width: 20vw;
+        border: none;
+        align-self: flex-start;
+        margin-left: -7vw;
+        cursor: pointer;
+        background: transparent;
+        margin-top: -28vw;
+        position: absolute;
+    }
+    }
+    
+    @media only screen and (max-width: 1000px) {
+    body {
+        background-image: url(./img/fondo.png);
+        background-size: cover;
+    }
+
+    .welcome {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 5vh;
+        background-color: rgba(255, 228, 196, 0);
+    }
+
+    .welcome img {
+        width: 75vw;
+    }
+
+    h2 {
+        font-family: 'Liu Jian Mao Cao', cursive;
+        color: rgb(21, 48, 76);
+        font-size: 1.8em;
+        margin-top: 0;
+    }
+
+    .btnRegister {
+        width: 55vw;
+        height: 6vh;
+        margin: 1vh;
+        border-radius: 10px;
+        color: rgb(6, 28, 50);
+        background-color: rgb(255, 255, 255);
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    .btnSignIn {
+        width: 55vw;
+        height: 6vh;
+        margin: 1vh;
+        border-radius: 10px;
+        color: rgb(6, 28, 50);
+        background-color: rgb(255, 255, 255);
+        font-family: 'Quicksand', sans-serif;
+    }
+    .btngoogle {
+        width: 55vw;
+        height: 6vh;
+        margin: 1vh;
+        border-radius: 10px;
+        color: rgb(6, 28, 50);
+        background-color: rgb(255, 255, 255);
+        font-family: 'Quicksand', sans-serif;
+        background-image: url('./img/btn_google.png');
+        background-size: 8vw;
+        background-repeat: no-repeat;
+    }
+
+    p {
+        font-family: 'Catamaran', sans-serif;
+        color: rgb(6, 28, 50);
+
+    }
+
+    .welcome p {
+        margin-left: 20vw;
+        margin-right: 20vw;
+        text-align: center;
+    }
+
+    #createAccount {
+        padding-left: 10vw;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        margin-top: 20vh;
+        position: absolute;
+    }
+
+    #createAccount p {
+        font-family: 'Yantramanav', sans-serif;
+    }
+
+    #createAccount img {
+        width: 20vw;
+        opacity: 0.5;
+        align-self: center;
+        margin-top: 3vh;
+    }
+
+    #createAccount input {
+        width: 75vw;
+        height: 5vh;
+        opacity: 0.6;
+        border-radius: 5px;
+    }
+
+    #createAccount button {
+        width: 20vw;
+        align-self: flex-end;
+       margin-top: 2vh;
+    }
+
+    #createAccount #btnReturn {
+        width: 20vw;
+        border: none;
+        align-self: flex-start;
+        margin-left: -7vw;
+        cursor: pointer;
+        background: transparent;
+        margin-top: -28vw;
+        position: absolute;
+    }
+    .messageError {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        text-align: center;
+        color: rgb(169, 8, 8);
+        background-color:rgba(238, 147, 147, 0.638);
+        width: 25vh;
+        align-self: center;
     }
 }
-

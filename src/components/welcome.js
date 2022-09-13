@@ -4,12 +4,18 @@ export const welcome = () => {
   const div = document.createElement('div');
   div.className = 'welcome';
   const buttonCreateAccount = document.createElement('button');
+  buttonCreateAccount.className = 'btnRegister';
   const buttonSignInGoogle = document.createElement('button');
+  buttonSignInGoogle.className = 'btngoogle';
   const buttonSignIn = document.createElement('button');
-  const title = document.createElement('h1');
+  buttonSignIn.className = 'btnSignIn';
+  const title = document.createElement('img');
+  title.src = './img/comuniapp.png';
+  title.className = 'nameApp';
   const subtitle = document.createElement('h2');
   const description = document.createElement('p');
   const welcomeImage = document.createElement('img');
+  welcomeImage.className = 'welcomeImg';
 
   buttonCreateAccount.textContent = 'Crear Cuenta';
   buttonSignInGoogle.textContent = 'Continuar con Google';
@@ -21,6 +27,10 @@ export const welcome = () => {
 
   buttonCreateAccount.addEventListener('click', () => {
     onNavigate('/createAccount');
+  });
+
+  buttonSignIn.addEventListener('click', () => {
+    onNavigate('/login');
   });
 
   // eslint-disable-next-line max-len
