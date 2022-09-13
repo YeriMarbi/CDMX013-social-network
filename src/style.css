@@ -7,19 +7,21 @@
     body {
         background-image: url(./img/web_background.png);
     }
-    
+
     .welcomeImg {
         width: 30vw;
         left: 25vh;
         top: 35vh;
         position: fixed;
     }
+
     .nameApp {
         width: 25vw;
         position: fixed;
         top: 15vh;
         left: 30vh;
     }
+
     h2 {
         font-family: 'Liu Jian Mao Cao', cursive;
         color: rgb(21, 48, 76);
@@ -29,11 +31,12 @@
         top: 27vh;
         left: 35vh;
     }
-    
+
     /* 414x736 */
     #btnReturn {
         width: 300px;
     }
+
     .btnRegister {
         width: 30vw;
         height: 6vh;
@@ -46,6 +49,7 @@
         top: 20vw;
         left: 60vw;
     }
+
     .btnSignIn {
         width: 30vw;
         height: 6vh;
@@ -58,7 +62,7 @@
         top: 30vw;
         left: 60vw;
     }
-    
+
     .btngoogle {
         width: 30vw;
         height: 6vh;
@@ -75,7 +79,7 @@
         top: 25vw;
         left: 60vw;
     }
-    
+
     p {
         font-family: 'Catamaran', sans-serif;
         font-size: 1.4em;
@@ -85,39 +89,40 @@
         top: 43vw;
         left: 23vh;
     }
+
     #createAccount {
         padding-left: 10vw;
         display: flex;
         flex-direction: column;
-        
+
         margin-top: 20vh;
         position: absolute;
     }
-    
+
     #createAccount p {
         font-family: 'Yantramanav', sans-serif;
     }
-    
+
     #createAccount img {
         width: 5vw;
         opacity: 0.5;
         align-self: center;
         margin-top: 25vh;
     }
-    
+
     #createAccount input {
         width: 75vw;
         height: 5vh;
         opacity: 0.6;
         border-radius: 5px;
     }
-    
+
     #createAccount button {
         width: 20vw;
         align-self: flex-end;
-       margin-top: 2vh;
+        margin-top: 2vh;
     }
-    
+
     #createAccount #btnReturn {
         width: 20vw;
         border: none;
@@ -128,9 +133,9 @@
         margin-top: -28vw;
         position: absolute;
     }
-    }
-    
-    @media only screen and (max-width: 1000px) {
+}
+
+@media only screen and (max-width: 1000px) {
     body {
         background-image: url(./img/fondo.png);
         background-size: cover;
@@ -174,6 +179,7 @@
         background-color: rgb(255, 255, 255);
         font-family: 'Quicksand', sans-serif;
     }
+
     .btngoogle {
         width: 55vw;
         height: 6vh;
@@ -190,7 +196,6 @@
     p {
         font-family: 'Catamaran', sans-serif;
         color: rgb(6, 28, 50);
-
     }
 
     .welcome p {
@@ -208,47 +213,111 @@
         position: absolute;
     }
 
-    #createAccount p {
+    .login {
+        padding-left: 10vw;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        position: absolute;
+    }
+
+    #createAccount p,
+    .login p {
         font-family: 'Yantramanav', sans-serif;
+        font-weight: bolder;
+        margin: 1vh 0;
     }
 
     #createAccount img {
-        width: 20vw;
+        width: 12vw;
         opacity: 0.5;
-        align-self: center;
-        margin-top: 3vh;
+        align-self: flex-end;
+        margin-top: -28vw;
+        margin-bottom: 13vh;
     }
 
-    #createAccount input {
+    #createAccount input,
+    .login input {
         width: 75vw;
         height: 5vh;
         opacity: 0.6;
         border-radius: 5px;
+        margin: auto;
+        background-color: #FFFFFF;
+        border: none;
+        padding: 0.8vh;
     }
 
-    #createAccount button {
-        width: 20vw;
-        align-self: flex-end;
-       margin-top: 2vh;
+
+    #btnSend,
+    #btnSendlogin {
+        width: 30vw;
+        height: 12vw;
+        border: none;
+        margin-top: 6vh;
+        border-radius: 3vw;
+        background-color: #40888E;
+        padding: 3vw;
+        color: aliceblue;
+        text-align: center;
+        margin: auto;
+        font-weight: bolder;
     }
 
-    #createAccount #btnReturn {
+    #btnSend{
+        margin-top:7vh;
+    }
+
+    #btnSendlogin {
+        width: 100%;
+        margin-top: 4vh;
+    }
+
+    #btnReturn {
         width: 20vw;
         border: none;
         align-self: flex-start;
         margin-left: -7vw;
         cursor: pointer;
         background: transparent;
-        margin-top: -28vw;
+        margin-top: -25vw;
         position: absolute;
+        background-image: url('./img/keyboard_return.png');
+        background-repeat: no-repeat;
+        background-size: 3vw;
     }
+
     .messageError {
         font-family: Arial, Helvetica, sans-serif;
         font-weight: bold;
         text-align: center;
         color: rgb(169, 8, 8);
-        background-color:rgba(238, 147, 147, 0.638);
-        width: 25vh;
+        background-color: rgba(238, 147, 147, 0.638);
+        width: 30vh;
         align-self: center;
+    }
+
+    #btnReturnLogin {
+        width: 20vh;
+        background-color: transparent;
+        border: none;
+        margin-left: -5vw;
+        background-image: url('./img/keyboard_return.png');
+        background-repeat: no-repeat;
+        background-size: 3vw;
+    }
+
+    #logoImg {
+        width: 40vw;
+        padding: 5vw;
+        margin: auto;
+        margin-top: 2vh;
+    }
+
+    h1{
+        margin:auto;
+        color: #40888E;
+
+        font-family: 'Quicksand', sans-serif;
     }
 }

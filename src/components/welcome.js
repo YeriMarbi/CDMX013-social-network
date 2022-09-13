@@ -46,7 +46,6 @@ export const welcome = () => {
       });
   });
 
-  // eslint-disable-next-line max-len
   div.append(title, welcomeImage, subtitle, buttonCreateAccount, buttonSignInGoogle, buttonSignIn, description);
   return div;
 };
