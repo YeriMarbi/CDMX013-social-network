@@ -1,7 +1,7 @@
 // import { createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js';
 import { onNavigate } from '../main.js';
-// import { auth } from '../lib/auth.js';
-import { register } from './prueba.js';
+import { register } from '../lib/auth.js';
+import {registerWithGoogle} from '../lib/auth.js';
 
 export const createAccount = () => {
   const divcreateAccount = document.createElement('div');
