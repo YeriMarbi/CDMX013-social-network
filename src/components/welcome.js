@@ -1,4 +1,5 @@
 import { onNavigate } from '../main.js';
+import { provider, auth, registerWithGoogle } from '../lib/auth.js';
 
 export const welcome = () => {
   const div = document.createElement('div');
@@ -31,6 +32,18 @@ export const welcome = () => {
 
   buttonSignIn.addEventListener('click', () => {
     onNavigate('/login');
+  });
+
+  buttonSignInGoogle.addEventListener('click', () => {
+    registerWithGoogle(auth, provider)
+      .then(() => {
+        onNavigate('/homepage');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
   });
 
   // eslint-disable-next-line max-len
