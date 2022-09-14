@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { onNavigate } from '../main.js';
 import { register } from '../lib/auth.js';
 
@@ -43,10 +44,10 @@ export const createAccount = () => {
     const passwordValue = document.getElementById('inputPassword').value;
 
     if (emailValue === '') {
-      messageError.innerHTML = 'Ingresa un correo electronico';
+      messageError.innerHTML = 'Ingresa un correo electrónico';
     }
 
-    if (passwordValue === '') {
+    if (passwordValue === '' || passwordValue.length < 6) {
       messageErrorPassword.innerHTML = 'Ingresa una contraseña';
     }
 
@@ -58,9 +59,13 @@ export const createAccount = () => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+
+        if (errorCode === 'auth/email-already-in-use') {
+          messageError.innerHTML = 'Este correo ya está registrado';
+        }
       });
   });
 
-  divcreateAccount.append(returnButton,  imgLogo, email, inputEmail, messageError, password, inputPassword, messageErrorPassword, sendButton);
+  divcreateAccount.append(returnButton, imgLogo, email, inputEmail, messageError, password, inputPassword, messageErrorPassword, sendButton);
   return divcreateAccount;
 };
