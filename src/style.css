@@ -314,10 +314,11 @@
         margin-top: 2vh;
     }
 
-    h1{
-        margin:auto;
+    .homePage{
+        display: flex;
+        justify-content: center;
         color: #40888E;
-
         font-family: 'Quicksand', sans-serif;
+   
     }
 }

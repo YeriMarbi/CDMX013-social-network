@@ -2,7 +2,7 @@
 
 export const homepage = () => {
   const divHomePage = document.createElement('div');
-  divHomePage.className = 'welcome';
+  divHomePage.className = 'homePage';
   const message = document.createElement('h1');
  
 message.textContent = 'En Construcción...';
