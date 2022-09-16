@@ -1,5 +1,5 @@
 import { onNavigate } from '../main.js';
-import { auth, userLogin } from '../lib/auth.js';
+import { userLogin } from '../lib/auth.js';
 
 export const login = () => {
   const divLogin = document.createElement('div');
@@ -44,13 +44,13 @@ export const login = () => {
     onNavigate('/');
   });
 
-  sendButton.addEventListener('click', ValidaryRegistrarLogin)
+  sendButton.addEventListener('click', validateAndRecord)
 
   divLogin.append(returnButton, imgLogo, email, inputEmail, messageError, password, inputPassword, messageErrorPassword, messageErrorCatch, sendButton);
   return divLogin;
 };
 
-function ValidaryRegistrarLogin(e) {
+function validateAndRecord(e) {
   e.preventDefault();
   const messageError = document.getElementById('messageErrorLogin');
   const messageErrorPassword = document.getElementById('messageErrorPasswordLogin');
