@@ -1,4 +1,5 @@
 import { onNavigate } from '../main.js';
+import { auth, userLogin } from '../lib/auth.js';
 
 export const login = () => {
   const divLogin = document.createElement('div');
@@ -21,21 +22,75 @@ export const login = () => {
   sendButton.setAttribute('id', 'btnSendlogin');
   const imgLogo = document.createElement('img');
   imgLogo.src = './img/logo.png';
-  imgLogo.setAttribute('id', 'logoImg')
+  imgLogo.setAttribute('id', 'logoImg');
   const messageErrorPassword = document.createElement('p');
   messageErrorPassword.className = 'messageError';
+  messageErrorPassword.id = 'messageErrorPasswordLogin';
   const messageError = document.createElement('p');
   messageError.className = 'messageError';
+  messageError.id = 'messageErrorLogin';
+  const messageErrorCatch = document.createElement('p');
+  messageErrorCatch.className = 'messageError';
+  messageErrorCatch.id = 'messageErrorCatchLogin';
+
 
   email.textContent = 'Correo electronico';
   password.textContent = 'Contraseña';
   sendButton.textContent = 'INGRESAR';
   returnButton.textContent = 'Regresar';
 
-  returnButton.addEventListener('click', () => {
+  returnButton.addEventListener('click', (e) => {
+    e.preventDefault();
     onNavigate('/');
   });
 
-  divLogin.append(returnButton, imgLogo, email, inputEmail,  messageError, password, inputPassword, messageErrorPassword, sendButton);
+  sendButton.addEventListener('click', ValidaryRegistrarLogin)
+
+  divLogin.append(returnButton, imgLogo, email, inputEmail, messageError, password, inputPassword, messageErrorPassword, messageErrorCatch, sendButton);
   return divLogin;
+};
+
+function ValidaryRegistrarLogin(e) {
+  e.preventDefault();
+  const messageError = document.getElementById('messageErrorLogin');
+  const messageErrorPassword = document.getElementById('messageErrorPasswordLogin');
+  const messageErrorCatch =document.getElementById('messageErrorCatchLogin');
+
+  messageError.innerHTML = '';
+  messageErrorPassword.innerHTML = '';
+
+  const emailValueLogin = document.getElementById('inputEmailLogin').value;
+  const passwordValueLogin = document.getElementById('inputPasswordLogin').value;
+
+  if (emailValueLogin === '') {
+    messageError.innerHTML = 'Ingresa un correo electrónico';
+  }
+
+  if (passwordValueLogin === '') {
+    messageErrorPassword.innerHTML = 'Ingresa una contraseña';
+  }
+
+  if (emailValueLogin === '' && passwordValueLogin === '') {
+    messageError.innerHTML = 'Ingresa un correo electrónico';
+    messageErrorPassword.innerHTML = 'Ingresa una contraseña';
+    return
+  }
+
+  userLogin(emailValueLogin, passwordValueLogin)
+
+    .then((userCredential) => {
+      const user = userCredential.user;
+      onNavigate('/homepage');
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      // const errorMessage = error.message;
+      // console.log(errorCode, errorMessage);
+      if (errorCode === 'auth/wrong-password') {
+        messageErrorCatch.innerHTML = 'Contraseña incorrecta';
+      }
+      if (errorCode === 'auth/user-not-found') {
+        messageErrorCatch.innerHTML = 'Correo no registrado';
+      }
+    })
 };
