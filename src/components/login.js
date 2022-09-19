@@ -44,17 +44,17 @@ export const login = () => {
     onNavigate('/');
   });
 
-  sendButton.addEventListener('click', validateAndRecord)
+  sendButton.addEventListener('click', validateAndRecord);
 
   divLogin.append(returnButton, imgLogo, email, inputEmail, messageError, password, inputPassword, messageErrorPassword, messageErrorCatch, sendButton);
   return divLogin;
 };
 
-function validateAndRecord(e) {
+const validateAndRecord = (e) => {
   e.preventDefault();
   const messageError = document.getElementById('messageErrorLogin');
   const messageErrorPassword = document.getElementById('messageErrorPasswordLogin');
-  const messageErrorCatch =document.getElementById('messageErrorCatchLogin');
+  const messageErrorCatch = document.getElementById('messageErrorCatchLogin');
 
   messageError.innerHTML = '';
   messageErrorPassword.innerHTML = '';
@@ -66,31 +66,26 @@ function validateAndRecord(e) {
     messageError.innerHTML = 'Ingresa un correo electrónico';
   }
 
-  if (passwordValueLogin === '') {
+  else if (passwordValueLogin === '') {
     messageErrorPassword.innerHTML = 'Ingresa una contraseña';
   }
 
-  if (emailValueLogin === '' && passwordValueLogin === '') {
-    messageError.innerHTML = 'Ingresa un correo electrónico';
-    messageErrorPassword.innerHTML = 'Ingresa una contraseña';
-    return
+  else {
+    userLogin(emailValueLogin, passwordValueLogin)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        onNavigate('/homepage');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        // const errorMessage = error.message;
+        // console.log(errorCode, errorMessage);
+        if (errorCode === 'auth/wrong-password') {
+          messageErrorCatch.innerHTML = 'Contraseña incorrecta';
+        }
+        if (errorCode === 'auth/user-not-found') {
+          messageErrorCatch.innerHTML = 'Correo no registrado';
+        }
+      })
   }
-
-  userLogin(emailValueLogin, passwordValueLogin)
-
-    .then((userCredential) => {
-      const user = userCredential.user;
-      onNavigate('/homepage');
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      // const errorMessage = error.message;
-      // console.log(errorCode, errorMessage);
-      if (errorCode === 'auth/wrong-password') {
-        messageErrorCatch.innerHTML = 'Contraseña incorrecta';
-      }
-      if (errorCode === 'auth/user-not-found') {
-        messageErrorCatch.innerHTML = 'Correo no registrado';
-      }
-    })
 };
