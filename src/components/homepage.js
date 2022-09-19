@@ -1,5 +1,3 @@
-import { saveTask } from "../lib/auth.js";
-
 export const homepage = () => {
   const divHomePage = document.createElement('div');
   divHomePage.className = 'homePage';
@@ -39,10 +37,9 @@ export const homepage = () => {
 };
 
 
-const formHomePage = (e) => {
-  e.preventDefault();
-  const title =document.getElementById('task-title').value
-  const description =document.getElementById('task description').value
+ const formHomePage = (e) => {
+   e.preventDefault();
+   const title =document.getElementById('task-title').value
+   const description =document.getElementById('task description').value
 
-saveTask(title,description)
-}
+ }
