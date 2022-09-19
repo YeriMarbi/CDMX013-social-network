@@ -24,8 +24,10 @@ export const createAccount = () => {
   imgLogo.src = './img/logo.png';
   const messageError = document.createElement('p');
   messageError.className = 'messageError';
+  messageError.id = 'messageError'
   const messageErrorPassword = document.createElement('p');
   messageErrorPassword.className = 'messageError';
+  messageErrorPassword.id = 'messageErrorPassword'
 
   email.textContent = 'Correo electronico';
   password.textContent = 'Contraseña';
@@ -36,31 +38,43 @@ export const createAccount = () => {
     onNavigate('/');
   });
 
-  sendButton.addEventListener('click', (e) => {
-    e.preventDefault();
+  sendButton.addEventListener('click', validateAndRecord)
 
-    const emailValue = document.getElementById('inputEmail').value;
-    const passwordValue = document.getElementById('inputPassword').value;
-
-    if (emailValue === '') {
-      messageError.innerHTML = 'Ingresa un correo electronico';
-    }
-
-    if (passwordValue === '') {
-      messageErrorPassword.innerHTML = 'Ingresa una contraseña';
-    }
-
-    register(emailValue, passwordValue)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        onNavigate('/homepage');
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
-  });
-
-  divcreateAccount.append(returnButton,  imgLogo, email, inputEmail, messageError, password, inputPassword, messageErrorPassword, sendButton);
+  divcreateAccount.append(returnButton, imgLogo, email, inputEmail, messageError, password, inputPassword, messageErrorPassword, sendButton);
   return divcreateAccount;
+};
+
+const validateAndRecord = (e) => {
+
+  const messageError = document.getElementById('messageError');
+  const messageErrorPassword = document.getElementById('messageErrorPassword');
+
+  e.preventDefault();
+  messageError.innerHTML = ''
+  messageErrorPassword.innerHTML = ''
+
+  const emailValue = document.getElementById('inputEmail').value;
+  const passwordValue = document.getElementById('inputPassword').value;
+
+  if (emailValue === '') {
+    messageError.innerHTML = 'Ingresa un correo electrónico';
+  }
+
+  else if (passwordValue === '' || passwordValue.length < 6) {
+    messageErrorPassword.innerHTML = 'Ingresa una contraseña';
+  }
+
+  register(emailValue, passwordValue)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      onNavigate('/homepage');
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+
+      if (errorCode === 'auth/email-already-in-use') {
+        messageError.innerHTML = 'Este correo ya está registrado';
+      }
+    });
 };
