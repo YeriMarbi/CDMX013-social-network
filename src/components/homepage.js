@@ -39,13 +39,10 @@ export const homepage = () => {
 };
 
 
-function formHomePage (e) {
+const formHomePage = (e) => {
   e.preventDefault();
   const title =document.getElementById('task-title').value
   const description =document.getElementById('task description').value
 
 saveTask(title,description)
-
-
-  console.log(title,description)
 }

@@ -44,7 +44,7 @@ export const createAccount = () => {
   return divcreateAccount;
 };
 
-function validateAndRecord(e) {
+const validateAndRecord = (e) => {
 
   const messageError = document.getElementById('messageError');
   const messageErrorPassword = document.getElementById('messageErrorPassword');
@@ -60,12 +60,8 @@ function validateAndRecord(e) {
     messageError.innerHTML = 'Ingresa un correo electrónico';
   }
 
-  if (passwordValue === '' || passwordValue.length < 6) {
+  else if (passwordValue === '' || passwordValue.length < 6) {
     messageErrorPassword.innerHTML = 'Ingresa una contraseña';
-  }
-
-  if ((passwordValue === '' || passwordValue.length < 6) || (emailValue === '')) {
-    return
   }
 
   register(emailValue, passwordValue)
