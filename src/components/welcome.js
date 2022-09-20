@@ -1,8 +1,6 @@
 /* eslint-disable max-len */
 import { onNavigate } from '../main.js';
-import { registerWithGoogle, observadorApp } from '../lib/auth.js';
-
-observadorApp();
+import { registerWithGoogle } from '../lib/auth.js';
 
 export const welcome = () => {
   const div = document.createElement('div');

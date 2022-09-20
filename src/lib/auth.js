@@ -24,21 +24,15 @@ export const getPost = () => getDocs(collection(db, 'posts'));
 
 // export const observador = () => onAuthStateChanged(auth, (user));
 
-export function observadorApp() {
+export function loginStateUser() {
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
       const uid = user.uid;
       const email = user.email;
       console.log('Existe un usuario activo', uid, email);
       onNavigate('/homepage');
-      // ...
     } else {
-      // User is signed out
-      // ...
       console.log('no existe usuario activo');
-      onNavigate('/');
     }
   });
 }
