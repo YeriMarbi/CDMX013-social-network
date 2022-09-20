@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { onNavigate } from '../main.js';
 import { userLogin } from '../lib/auth.js';
 
@@ -33,7 +34,6 @@ export const login = () => {
   messageErrorCatch.className = 'messageError';
   messageErrorCatch.id = 'messageErrorCatchLogin';
 
-
   email.textContent = 'Correo electronico';
   password.textContent = 'Contraseña';
   sendButton.textContent = 'INGRESAR';
@@ -64,13 +64,9 @@ const validateAndRecord = (e) => {
 
   if (emailValueLogin === '') {
     messageError.innerHTML = 'Ingresa un correo electrónico';
-  }
-
-  else if (passwordValueLogin === '') {
+  } else if (passwordValueLogin === '') {
     messageErrorPassword.innerHTML = 'Ingresa una contraseña';
-  }
-
-  else {
+  } else {
     userLogin(emailValueLogin, passwordValueLogin)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -86,6 +82,6 @@ const validateAndRecord = (e) => {
         if (errorCode === 'auth/user-not-found') {
           messageErrorCatch.innerHTML = 'Correo no registrado';
         }
-      })
+      });
   }
 };
