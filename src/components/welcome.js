@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { onNavigate } from '../main.js';
 import { registerWithGoogle } from '../lib/auth.js';
 

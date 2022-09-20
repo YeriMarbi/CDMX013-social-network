@@ -1,4 +1,15 @@
+/* eslint-disable max-len */
+import { getPost, savePost, } from '../lib/auth.js';
+
+const formHomePage = (e) => {
+  e.preventDefault();
+  const post = document.getElementById('post-description').value;
+  savePost(post);
+};
+
 export const homepage = () => {
+  const divPosts = document.createElement('div');
+  divPosts.className = 'div-posts';
   const divHomePage = document.createElement('div');
   divHomePage.className = 'homePage';
   const imgLogo = document.createElement('img');
@@ -6,40 +17,31 @@ export const homepage = () => {
   imgLogo.setAttribute('id', 'logoImgHome');
   const message = document.createElement('h1');
 
-  const formHome= document.createElement('div');
+  const formHome = document.createElement('div');
   formHome.className = 'homePage';
-  formHome.id='task-form'
+  formHome.id = 'post-form';
   const labelTitle = document.createElement('label');
   labelTitle.className = 'title';
-  const inputTitle = document.createElement('input');
-  inputTitle.setAttribute('type', 'texto');
-  inputTitle.setAttribute('placeholder', 'Task Title');
-  inputTitle.id = 'task-title';
   const labelDescription = document.createElement('label');
   labelDescription.className = 'description';
-  const inputDescription = document.createElement('textarea');
-  inputDescription.id = 'task description';
-  inputDescription.setAttribute('rows', '3');
-  inputDescription.setAttribute('placeholder', 'Task Description');
-  const btnSave = document.createElement('button');
-  btnSave.id='btn-task-save';
+  const inputDescription = document.createElement('input');
+  inputDescription.id = 'post-description';
+  inputDescription.setAttribute('placeholder', 'Escribe algo...');
+  const btnPost = document.createElement('button');
+  btnPost.id = 'btn-post-save';
 
-  message.textContent = 'En Construcción...';
+  message.textContent = 'Bienvenida';
 
-  labelTitle.textContent = 'Title';
-  labelDescription.textContent = 'Description';
-  btnSave.textContent = 'Save';
+  btnPost.textContent = 'Publicar';
 
-  btnSave.addEventListener('click', formHomePage)
+  btnPost.addEventListener('click', formHomePage);
 
-  divHomePage.append(imgLogo, message,  formHome, labelTitle, inputTitle, labelDescription, inputDescription,btnSave);
+  divHomePage.append(imgLogo, message, formHome, labelTitle, labelDescription, inputDescription, btnPost, divPosts);
   return divHomePage;
 };
 
-
- const formHomePage = (e) => {
-   e.preventDefault();
-   const title =document.getElementById('task-title').value
-   const description =document.getElementById('task description').value
-
- }
+const querySnapshot = await getPost();
+querySnapshot.forEach(doc => {
+  const collectionPost = doc.data()
+  console.log(collectionPost);
+});
