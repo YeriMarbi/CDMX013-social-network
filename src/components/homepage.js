@@ -39,12 +39,6 @@ export const homepage = () => {
     formHomePage();
   });
 
-  divHomePage.append(imgLogo, message, formHome, labelTitle, labelDescription, inputDescription, btnPost, divPosts);
-  return divHomePage;
-};
-
-window.addEventListener('load', async () => {
-  // const querySnapshot = await getPost();
   onGetPost((querySnapshot) => {
     const postPrueba = document.getElementById('div-prueba');
 
@@ -61,4 +55,7 @@ window.addEventListener('load', async () => {
     });
     postPrueba.innerHTML = html;
   });
-});
+
+  divHomePage.append(imgLogo, message, formHome, labelTitle, labelDescription, inputDescription, btnPost, divPosts);
+  return divHomePage;
+};

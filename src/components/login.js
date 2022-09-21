@@ -64,7 +64,8 @@ const validateAndRecord = (e) => {
 
   if (emailValueLogin === '') {
     messageError.innerHTML = 'Ingresa un correo electrónico';
-  } else if (passwordValueLogin === '') {
+  }
+  if (passwordValueLogin === '') {
     messageErrorPassword.innerHTML = 'Ingresa una contraseña';
   } else {
     userLogin(emailValueLogin, passwordValueLogin)
