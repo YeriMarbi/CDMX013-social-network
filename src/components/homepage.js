@@ -1,8 +1,7 @@
 /* eslint-disable max-len */
-import { getPost, savePost, } from '../lib/auth.js';
+import { savePost, onGetPost } from '../lib/auth.js';
 
-const formHomePage = (e) => {
-  e.preventDefault();
+const formHomePage = () => {
   const post = document.getElementById('post-description').value;
   savePost(post);
 };
@@ -10,6 +9,7 @@ const formHomePage = (e) => {
 export const homepage = () => {
   const divPosts = document.createElement('div');
   divPosts.className = 'div-posts';
+  divPosts.id = 'div-prueba';
   const divHomePage = document.createElement('div');
   divHomePage.className = 'homePage';
   const imgLogo = document.createElement('img');
@@ -30,18 +30,35 @@ export const homepage = () => {
   const btnPost = document.createElement('button');
   btnPost.id = 'btn-post-save';
 
-  message.textContent = 'Bienvenida';
+  message.textContent = 'Bienvenidx';
 
   btnPost.textContent = 'Publicar';
 
-  btnPost.addEventListener('click', formHomePage);
+  btnPost.addEventListener('click', (e) => {
+    e.preventDefault();
+    formHomePage();
+  });
 
   divHomePage.append(imgLogo, message, formHome, labelTitle, labelDescription, inputDescription, btnPost, divPosts);
   return divHomePage;
 };
 
-const querySnapshot = await getPost();
-querySnapshot.forEach(doc => {
-  const collectionPost = doc.data()
-  console.log(collectionPost);
+window.addEventListener('load', async () => {
+  // const querySnapshot = await getPost();
+  onGetPost((querySnapshot) => {
+    const postPrueba = document.getElementById('div-prueba');
+
+    let html = '';
+
+    querySnapshot.forEach((doc) => {
+      const collectionPost = doc.data();
+      console.log(collectionPost);
+      html += `
+    <div class = "card border-primary">
+    <p>${collectionPost.post}</p>
+    </div>
+    `;
+    });
+    postPrueba.innerHTML = html;
+  });
 });

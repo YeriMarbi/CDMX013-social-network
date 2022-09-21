@@ -3,7 +3,7 @@ import {
   getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged,
 } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js';
 import {
-  getFirestore, collection, addDoc, getDocs,
+  getFirestore, collection, addDoc, getDocs, onSnapshot,
 } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-firestore.js';
 import { onNavigate } from '../main.js';
 import { app } from './firebase.js';
@@ -21,6 +21,7 @@ export const savePost = (post) => {
 };
 
 export const getPost = () => getDocs(collection(db, 'posts'));
+export const onGetPost = (callback) => onSnapshot(collection(db, 'posts'), callback);
 
 // export const observador = () => onAuthStateChanged(auth, (user));
 
