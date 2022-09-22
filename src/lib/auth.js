@@ -3,7 +3,7 @@ import {
   getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged,
 } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js';
 import {
-  getFirestore, collection, addDoc, getDocs, onSnapshot,
+  getFirestore, collection, addDoc, getDocs, onSnapshot,  query, orderBy, limit 
 } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-firestore.js';
 import { onNavigate } from '../main.js';
 import { app } from './firebase.js';
@@ -23,8 +23,6 @@ export const savePost = (post) => {
 export const getPost = () => getDocs(collection(db, 'posts'));
 export const onGetPost = (callback) => onSnapshot(collection(db, 'posts'), callback);
 
-// export const observador = () => onAuthStateChanged(auth, (user));
-
 export function loginStateUser() {
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -38,21 +36,4 @@ export function loginStateUser() {
   });
 }
 
-// export const observador = () => onAuthStateChanged(auth, (user));
-
-// observador() {
-//     if (user) {
-//       // User is signed in, see docs for a list of available properties
-//       // https://firebase.google.com/docs/reference/js/firebase.User
-//       const uid = user.uid;
-//       const email = user.email;
-//       console.log('Existe un usuario activo', uid, email);
-//       onNavigate('/');
-//       // ...
-//     } else {
-//       // User is signed out
-//       // ...
-//       console.log('no existe usuario activo');
-//       onNavigate('/');
-//     }
-//   }
+export const order = ()=> query (collection(db, 'posts'), orderBy('post'), limit(10));

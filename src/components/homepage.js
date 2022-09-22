@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { savePost, onGetPost } from '../lib/auth.js';
+import { savePost, onGetPost, order } from '../lib/auth.js';
 
 const formHomePage = () => {
   const post = document.getElementById('post-description').value;
@@ -9,7 +9,7 @@ const formHomePage = () => {
 export const homepage = () => {
   const divPosts = document.createElement('div');
   divPosts.className = 'div-posts';
-  divPosts.id = 'div-prueba';
+  divPosts.id = 'div-View';
   const divHomePage = document.createElement('div');
   divHomePage.className = 'homePage';
   const imgLogo = document.createElement('img');
@@ -37,23 +37,24 @@ export const homepage = () => {
   btnPost.addEventListener('click', (e) => {
     e.preventDefault();
     formHomePage();
+    inputDescription.value = '';
   });
 
   onGetPost((querySnapshot) => {
-    const postPrueba = document.getElementById('div-prueba');
+    const postView = document.getElementById('div-View');
 
     let html = '';
-
+   order(querySnapshot)
     querySnapshot.forEach((doc) => {
       const collectionPost = doc.data();
-      console.log(collectionPost);
+   
       html += `
     <div class = "card border-primary">
     <p>${collectionPost.post}</p>
     </div>
     `;
     });
-    postPrueba.innerHTML = html;
+    postView.innerHTML = html;
   });
 
   divHomePage.append(imgLogo, message, formHome, labelTitle, labelDescription, inputDescription, btnPost, divPosts);
