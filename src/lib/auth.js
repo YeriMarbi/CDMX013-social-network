@@ -3,7 +3,7 @@ import {
   getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged,
 } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js';
 import {
-  getFirestore, collection, addDoc, getDocs, onSnapshot,  query, orderBy, limit 
+  getFirestore, collection, addDoc, getDocs, onSnapshot, query, orderBy, limit, serverTimestamp,
 } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-firestore.js';
 import { onNavigate } from '../main.js';
 import { app } from './firebase.js';
@@ -17,11 +17,11 @@ export const registerWithGoogle = () => signInWithPopup(auth, provider);
 export const userLogin = (email, password) => signInWithEmailAndPassword(auth, email, password);
 
 export const savePost = (post) => {
-  addDoc(collection(db, 'posts'), { post });
+  addDoc(collection(db, 'posts'), { post, createdAt: serverTimestamp() });
 };
+const order = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), limit(10));
 
-export const getPost = () => getDocs(collection(db, 'posts'));
-export const onGetPost = (callback) => onSnapshot(collection(db, 'posts'), callback);
+export const onGetPost = (callback) => onSnapshot(order, callback);
 
 export function loginStateUser() {
   onAuthStateChanged(auth, (user) => {
@@ -35,5 +35,3 @@ export function loginStateUser() {
     }
   });
 }
-
-export const order = ()=> query (collection(db, 'posts'), orderBy('post'), limit(10));
