@@ -1,6 +1,6 @@
-import { signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js';
+/* eslint-disable max-len */
 import { onNavigate } from '../main.js';
-import { auth } from '../lib/auth.js';
+import { userLogin } from '../lib/auth.js';
 
 export const login = () => {
   const divLogin = document.createElement('div');
@@ -26,10 +26,13 @@ export const login = () => {
   imgLogo.setAttribute('id', 'logoImg');
   const messageErrorPassword = document.createElement('p');
   messageErrorPassword.className = 'messageError';
+  messageErrorPassword.id = 'messageErrorPasswordLogin';
   const messageError = document.createElement('p');
   messageError.className = 'messageError';
+  messageError.id = 'messageErrorLogin';
   const messageErrorCatch = document.createElement('p');
   messageErrorCatch.className = 'messageError';
+  messageErrorCatch.id = 'messageErrorCatchLogin';
 
   email.textContent = 'Correo electronico';
   password.textContent = 'Contraseña';
@@ -41,31 +44,39 @@ export const login = () => {
     onNavigate('/');
   });
 
-  sendButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    messageError.innerHTML = '';
+  sendButton.addEventListener('click', validateAndRecord);
 
-    const emailValueLogin = document.getElementById('inputEmailLogin').value;
-    const passwordValueLogin = document.getElementById('inputPasswordLogin').value;
+  divLogin.append(returnButton, imgLogo, email, inputEmail, messageError, password, inputPassword, messageErrorPassword, messageErrorCatch, sendButton);
+  return divLogin;
+};
 
-    if (emailValueLogin === '') {
-      messageError.innerHTML = 'Ingresa un correo electrónico';
-    }
+const validateAndRecord = (e) => {
+  e.preventDefault();
+  const messageError = document.getElementById('messageErrorLogin');
+  const messageErrorPassword = document.getElementById('messageErrorPasswordLogin');
+  const messageErrorCatch = document.getElementById('messageErrorCatchLogin');
 
-    if (emailValueLogin === '') {
-      messageErrorPassword.innerHTML = 'Ingresa una contraseña';
-    }
+  messageError.innerHTML = '';
+  messageErrorPassword.innerHTML = '';
 
-    signInWithEmailAndPassword(auth, emailValueLogin, passwordValueLogin)
+  const emailValueLogin = document.getElementById('inputEmailLogin').value;
+  const passwordValueLogin = document.getElementById('inputPasswordLogin').value;
+
+  if (emailValueLogin === '') {
+    messageError.innerHTML = 'Ingresa un correo electrónico';
+  }
+  if (passwordValueLogin === '') {
+    messageErrorPassword.innerHTML = 'Ingresa una contraseña';
+  } else {
+    userLogin(emailValueLogin, passwordValueLogin)
       .then((userCredential) => {
         const user = userCredential.user;
         onNavigate('/homepage');
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-
+        // const errorMessage = error.message;
+        // console.log(errorCode, errorMessage);
         if (errorCode === 'auth/wrong-password') {
           messageErrorCatch.innerHTML = 'Contraseña incorrecta';
         }
@@ -73,8 +84,5 @@ export const login = () => {
           messageErrorCatch.innerHTML = 'Correo no registrado';
         }
       });
-  });
-  // eslint-disable-next-line max-len
-  divLogin.append(returnButton, imgLogo, email, inputEmail, messageError, password, inputPassword, messageErrorPassword, messageErrorCatch, sendButton);
-  return divLogin;
+  }
 };

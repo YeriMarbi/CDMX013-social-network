@@ -1,5 +1,6 @@
+/* eslint-disable max-len */
 import { onNavigate } from '../main.js';
-import { provider, auth, registerWithGoogle } from '../lib/auth.js';
+import { registerWithGoogle } from '../lib/auth.js';
 
 export const welcome = () => {
   const div = document.createElement('div');
@@ -35,7 +36,7 @@ export const welcome = () => {
   });
 
   buttonSignInGoogle.addEventListener('click', () => {
-    registerWithGoogle(auth, provider)
+    registerWithGoogle()
       .then(() => {
         onNavigate('/homepage');
       })
