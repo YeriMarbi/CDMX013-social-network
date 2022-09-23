@@ -43,18 +43,30 @@ export const homepage = () => {
   onGetPost((querySnapshot) => {
     const postView = document.getElementById('div-View');
 
-    let html = '';
+    // const html = '';
 
     querySnapshot.forEach((doc) => {
+      console.log(doc.id);
       const collectionPost = doc.data();
-
-      html += `
-    <div class = "card border-primary">
-    <p>${collectionPost.post}</p>
-    </div>
-    `;
+      const allPost = document.createElement('section');
+      allPost.className = 'card-post';
+      const postContent = document.createElement('p');
+      postContent.textContent = collectionPost.post;
+      const editBtn = document.createElement('button');
+      editBtn.className = 'btn-edit';
+      editBtn.data = ('data-id', doc.id);
+      editBtn.textContent = 'Editar';
+      postView.append(allPost, postContent, editBtn);
     });
-    postView.innerHTML = html;
+
+    postView.removeChild(postView.appendChild);
+
+    const editPost = postView.querySelectorAll('.btn-edit');
+    editPost.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        console.log(e.target.dataset.id);
+      });
+    });
   });
 
   divHomePage.append(imgLogo, message, formHome, labelTitle, labelDescription, inputDescription, btnPost, divPosts);
