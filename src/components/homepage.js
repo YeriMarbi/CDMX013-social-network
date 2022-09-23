@@ -59,7 +59,7 @@ export const homepage = () => {
       postView.append(allPost, postContent, editBtn);
     });
 
-    postView.removeChild(postView.appendChild);
+    postView.removeChild(postView.firstChild);
 
     const editPost = postView.querySelectorAll('.btn-edit');
     editPost.forEach((btn) => {

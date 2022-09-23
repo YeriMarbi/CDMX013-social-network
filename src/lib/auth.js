@@ -19,7 +19,7 @@ export const userLogin = (email, password) => signInWithEmailAndPassword(auth, e
 export const savePost = (post) => {
   addDoc(collection(db, 'posts'), { post, createdAt: serverTimestamp() });
 };
-const order = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), limit(10));
+const order = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), limit(2));
 
 export const onGetPost = (callback) => onSnapshot(order, callback);
 
