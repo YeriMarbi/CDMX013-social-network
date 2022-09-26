@@ -1,4 +1,4 @@
-import { savePost, onGetPost } from '../lib/auth.js';
+import { savePost, onGetPost, getPost } from '../lib/auth.js';
 
 const formHomePage = () => {
   const post = document.getElementById('post-description').value;
@@ -39,10 +39,8 @@ export const homepage = () => {
 
   onGetPost((querySnapshot) => {
     divPosts.innerHTML = '';
-    console.log('onGetPost');
     querySnapshot.forEach((doc) => {
-      console.log(doc.id);
-      console.log(doc.type);
+      // console.log(doc.id);
       const collectionPost = doc.data();
       const allPost = document.createElement('section');
       allPost.className = 'card-post';
@@ -58,8 +56,9 @@ export const homepage = () => {
 
     const editPost = divPosts.querySelectorAll('.btn-edit');
     editPost.forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        console.log(e.target.dataset.id);
+      btn.addEventListener('click', async (e) => {
+        const postId = await getPost(e.target.data);
+        console.log(postId.data());
       });
     });
   });
