@@ -1,5 +1,5 @@
 import {
-  savePost, onGetPost, getPost, updatePost,
+  savePost, onGetPost, getPost, updatePost, deletePost,
 } from '../lib/auth.js';
 
 let editStatus = false;
@@ -10,7 +10,7 @@ const formHomePage = () => {
   if (!editStatus) {
     savePost(postEditSave);
   } else {
-    updatePost(id, {post: postEditSave});
+    updatePost(id, { post: postEditSave });
     editStatus = false;
   }
 };
@@ -39,7 +39,7 @@ export const homepage = () => {
   btnPost.id = 'btn-post-save';
 
   message.textContent = 'Bienvenidx';
-  btnPost.textContent = 'Publicar';
+  btnPost.innerText = 'Publicar';
 
   onGetPost((querySnapshot) => {
     divPosts.innerHTML = '';
@@ -54,8 +54,12 @@ export const homepage = () => {
       editBtn.className = 'btn-edit';
       editBtn.data = ('data-id', doc.id);
       editBtn.textContent = 'Editar';
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'btn-delete';
+      deleteBtn.data = ('data-id', doc.id);
+      deleteBtn.textContent = 'Eliminar';
 
-      divPosts.append(allPost, postContent, editBtn);
+      divPosts.append(allPost, postContent, editBtn, deleteBtn);
     });
 
     const editPost = divPosts.querySelectorAll('.btn-edit');
@@ -68,17 +72,24 @@ export const homepage = () => {
         inputDescription.value = postInfo.post;
         editStatus = true;
         id = postId.id;
-        btnPost.textContent = 'Guardar';
+        btnPost.innerText = 'Guardar';
+      });
+    });
+    const btnsDelete = divPosts.querySelectorAll('.btn-delete');
+    console.log(btnsDelete);
+    btnsDelete.forEach((btn) => {
+      btn.addEventListener('click', ({ target: { data } }) => {
+        deletePost(data);
       });
     });
   });
-  btnPost.textContent = 'Publicar';
 
   btnPost.addEventListener('click', (e) => {
     e.preventDefault();
     formHomePage();
 
     inputDescription.value = '';
+    btnPost.innerText = 'Publicar';
   });
 
   divHomePage.append(
