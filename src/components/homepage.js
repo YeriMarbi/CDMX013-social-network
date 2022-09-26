@@ -1,10 +1,11 @@
-import { savePost, onGetPost } from '../lib/auth.js';
+import { savePost, onGetPost, getPost } from '../lib/auth.js';
 
 const formHomePage = () => {
   const post = document.getElementById('post-description').value;
   savePost(post);
 };
 
+let editStatus = false;
 export const homepage = () => {
   const divPosts = document.createElement('div');
   divPosts.className = 'div-posts';
@@ -34,15 +35,19 @@ export const homepage = () => {
   btnPost.addEventListener('click', (e) => {
     e.preventDefault();
     formHomePage();
+
+    if (editStatus) {
+      console.log('updating');
+    } else {
+      savePost(post);
+    }
     inputDescription.value = '';
   });
 
   onGetPost((querySnapshot) => {
     divPosts.innerHTML = '';
-    console.log('onGetPost');
     querySnapshot.forEach((doc) => {
-      console.log(doc.id);
-      console.log(doc.type);
+      // console.log(doc.id);
       const collectionPost = doc.data();
       const allPost = document.createElement('section');
       allPost.className = 'card-post';
@@ -58,8 +63,13 @@ export const homepage = () => {
 
     const editPost = divPosts.querySelectorAll('.btn-edit');
     editPost.forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        console.log(e.target.dataset.id);
+      btn.addEventListener('click', async (e) => {
+        const postId = await getPost(e.target.data);
+        const postInfo = postId.data();
+        console.log(postInfo);
+
+        inputDescription.value = postInfo.post;
+        editStatus = true;
       });
     });
   });
