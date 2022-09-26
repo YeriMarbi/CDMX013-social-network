@@ -1,6 +1,6 @@
-/* eslint-disable max-len */
 import {
-  getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged,
+  getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword,
+  signInWithEmailAndPassword, onAuthStateChanged,
 } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js';
 import {
   getFirestore, collection, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp,
@@ -19,7 +19,7 @@ export const userLogin = (email, password) => signInWithEmailAndPassword(auth, e
 export const savePost = (post) => {
   addDoc(collection(db, 'posts'), { post, createdAt: serverTimestamp() });
 };
-const order = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), limit(2));
+const order = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), limit(10));
 
 export const onGetPost = (callback) => onSnapshot(order, callback);
 
