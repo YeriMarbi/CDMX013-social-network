@@ -1,11 +1,15 @@
 import { savePost, onGetPost, getPost } from '../lib/auth.js';
 
+let editStatus = false;
 const formHomePage = () => {
   const post = document.getElementById('post-description').value;
-  savePost(post);
+  if (editStatus) {
+    console.log('updating');
+  } else {
+    savePost(post);
+  }
 };
 
-let editStatus = false;
 export const homepage = () => {
   const divPosts = document.createElement('div');
   divPosts.className = 'div-posts';
@@ -35,19 +39,12 @@ export const homepage = () => {
   btnPost.addEventListener('click', (e) => {
     e.preventDefault();
     formHomePage();
-
-    if (editStatus) {
-      console.log('updating');
-    } else {
-      savePost(post);
-    }
     inputDescription.value = '';
   });
 
   onGetPost((querySnapshot) => {
     divPosts.innerHTML = '';
     querySnapshot.forEach((doc) => {
-      // console.log(doc.id);
       const collectionPost = doc.data();
       const allPost = document.createElement('section');
       allPost.className = 'card-post';
@@ -56,6 +53,7 @@ export const homepage = () => {
       const editBtn = document.createElement('button');
       editBtn.className = 'btn-edit';
       editBtn.data = ('data-id', doc.id);
+      console.log(editBtn.data);
       editBtn.textContent = 'Editar';
 
       divPosts.append(allPost, postContent, editBtn);
@@ -66,8 +64,6 @@ export const homepage = () => {
       btn.addEventListener('click', async (e) => {
         const postId = await getPost(e.target.data);
         const postInfo = postId.data();
-        console.log(postInfo);
-
         inputDescription.value = postInfo.post;
         editStatus = true;
       });
