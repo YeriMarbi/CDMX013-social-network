@@ -1,6 +1,6 @@
-/* eslint-disable max-len */
 import {
-  getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged,
+  getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword,
+  signInWithEmailAndPassword, onAuthStateChanged,
 } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js';
 import {
   getFirestore, collection, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp,

@@ -2,6 +2,41 @@
 import { onNavigate } from '../main.js';
 import { userLogin } from '../lib/auth.js';
 
+const validateAndRecord = (e) => {
+  e.preventDefault();
+  const messageError = document.getElementById('messageErrorLogin');
+  const messageErrorPassword = document.getElementById('messageErrorPasswordLogin');
+  const messageErrorCatch = document.getElementById('messageErrorCatchLogin');
+
+  messageError.innerHTML = '';
+  messageErrorPassword.innerHTML = '';
+
+  const emailValueLogin = document.getElementById('inputEmailLogin').value;
+  const passwordValueLogin = document.getElementById('inputPasswordLogin').value;
+
+  if (emailValueLogin === '') {
+    messageError.innerHTML = 'Ingresa un correo electrónico';
+  }
+  if (passwordValueLogin === '') {
+    messageErrorPassword.innerHTML = 'Ingresa una contraseña';
+  } else {
+    userLogin(emailValueLogin, passwordValueLogin)
+      .then(() => {
+        onNavigate('/homepage');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        // const errorMessage = error.message;
+        // console.log(errorCode, errorMessage);
+        if (errorCode === 'auth/wrong-password') {
+          messageErrorCatch.innerHTML = 'Contraseña incorrecta';
+        }
+        if (errorCode === 'auth/user-not-found') {
+          messageErrorCatch.innerHTML = 'Correo no registrado';
+        }
+      });
+  }
+};
 export const login = () => {
   const divLogin = document.createElement('div');
   divLogin.className = 'login';
@@ -48,41 +83,4 @@ export const login = () => {
 
   divLogin.append(returnButton, imgLogo, email, inputEmail, messageError, password, inputPassword, messageErrorPassword, messageErrorCatch, sendButton);
   return divLogin;
-};
-
-const validateAndRecord = (e) => {
-  e.preventDefault();
-  const messageError = document.getElementById('messageErrorLogin');
-  const messageErrorPassword = document.getElementById('messageErrorPasswordLogin');
-  const messageErrorCatch = document.getElementById('messageErrorCatchLogin');
-
-  messageError.innerHTML = '';
-  messageErrorPassword.innerHTML = '';
-
-  const emailValueLogin = document.getElementById('inputEmailLogin').value;
-  const passwordValueLogin = document.getElementById('inputPasswordLogin').value;
-
-  if (emailValueLogin === '') {
-    messageError.innerHTML = 'Ingresa un correo electrónico';
-  }
-  if (passwordValueLogin === '') {
-    messageErrorPassword.innerHTML = 'Ingresa una contraseña';
-  } else {
-    userLogin(emailValueLogin, passwordValueLogin)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        onNavigate('/homepage');
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        // const errorMessage = error.message;
-        // console.log(errorCode, errorMessage);
-        if (errorCode === 'auth/wrong-password') {
-          messageErrorCatch.innerHTML = 'Contraseña incorrecta';
-        }
-        if (errorCode === 'auth/user-not-found') {
-          messageErrorCatch.innerHTML = 'Correo no registrado';
-        }
-      });
-  }
 };

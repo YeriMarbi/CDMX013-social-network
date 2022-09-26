@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { savePost, onGetPost } from '../lib/auth.js';
 
 const formHomePage = () => {
@@ -16,7 +15,6 @@ export const homepage = () => {
   imgLogo.src = './img/logo.png';
   imgLogo.setAttribute('id', 'logoImgHome');
   const message = document.createElement('h1');
-
   const formHome = document.createElement('div');
   formHome.className = 'homePage';
   formHome.id = 'post-form';
@@ -31,7 +29,6 @@ export const homepage = () => {
   btnPost.id = 'btn-post-save';
 
   message.textContent = 'Bienvenidx';
-
   btnPost.textContent = 'Publicar';
 
   btnPost.addEventListener('click', (e) => {
@@ -41,12 +38,11 @@ export const homepage = () => {
   });
 
   onGetPost((querySnapshot) => {
-    const postView = document.getElementById('div-View');
-
-    // const html = '';
-
+    divPosts.innerHTML = '';
+    console.log('onGetPost');
     querySnapshot.forEach((doc) => {
       console.log(doc.id);
+      console.log(doc.type);
       const collectionPost = doc.data();
       const allPost = document.createElement('section');
       allPost.className = 'card-post';
@@ -56,12 +52,11 @@ export const homepage = () => {
       editBtn.className = 'btn-edit';
       editBtn.data = ('data-id', doc.id);
       editBtn.textContent = 'Editar';
-      postView.append(allPost, postContent, editBtn);
+
+      divPosts.append(allPost, postContent, editBtn);
     });
 
-    postView.removeChild(postView.appendChild);
-
-    const editPost = postView.querySelectorAll('.btn-edit');
+    const editPost = divPosts.querySelectorAll('.btn-edit');
     editPost.forEach((btn) => {
       btn.addEventListener('click', (e) => {
         console.log(e.target.dataset.id);
@@ -69,6 +64,15 @@ export const homepage = () => {
     });
   });
 
-  divHomePage.append(imgLogo, message, formHome, labelTitle, labelDescription, inputDescription, btnPost, divPosts);
+  divHomePage.append(
+    imgLogo,
+    message,
+    formHome,
+    labelTitle,
+    labelDescription,
+    inputDescription,
+    btnPost,
+    divPosts,
+  );
   return divHomePage;
 };
