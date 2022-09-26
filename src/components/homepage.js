@@ -79,7 +79,9 @@ export const homepage = () => {
     console.log(btnsDelete);
     btnsDelete.forEach((btn) => {
       btn.addEventListener('click', ({ target: { data } }) => {
-        deletePost(data);
+        if (window.confirm('¿Deseas eliminar este Post?')) {
+          deletePost(data);
+        }
       });
     });
   });
