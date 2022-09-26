@@ -1,11 +1,20 @@
-import { savePost, onGetPost, getPost } from '../lib/auth.js';
-
-const formHomePage = () => {
-  const post = document.getElementById('post-description').value;
-  savePost(post);
-};
+import {
+  savePost, onGetPost, getPost, updatePost,
+} from '../lib/auth.js';
 
 let editStatus = false;
+let id = '';
+const formHomePage = () => {
+  const postEditSave = document.getElementById('post-description').value;
+  // inputDescription.value = '';
+  if (!editStatus) {
+    savePost(postEditSave);
+  } else {
+    updatePost(id, {post: postEditSave});
+    editStatus = false;
+  }
+};
+
 export const homepage = () => {
   const divPosts = document.createElement('div');
   divPosts.className = 'div-posts';
@@ -31,18 +40,6 @@ export const homepage = () => {
 
   message.textContent = 'Bienvenidx';
   btnPost.textContent = 'Publicar';
-
-  btnPost.addEventListener('click', (e) => {
-    e.preventDefault();
-    formHomePage();
-
-    if (editStatus) {
-      console.log('updating');
-    } else {
-      savePost(post);
-    }
-    inputDescription.value = '';
-  });
 
   onGetPost((querySnapshot) => {
     divPosts.innerHTML = '';
@@ -70,8 +67,18 @@ export const homepage = () => {
 
         inputDescription.value = postInfo.post;
         editStatus = true;
+        id = postId.id;
+        btnPost.textContent = 'Guardar';
       });
     });
+  });
+  btnPost.textContent = 'Publicar';
+
+  btnPost.addEventListener('click', (e) => {
+    e.preventDefault();
+    formHomePage();
+
+    inputDescription.value = '';
   });
 
   divHomePage.append(
