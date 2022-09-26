@@ -1,12 +1,16 @@
-import { savePost, onGetPost, getPost } from '../lib/auth.js';
+import {
+  savePost, onGetPost, getPost, updatePost,
+} from '../lib/auth.js';
 
 let editStatus = false;
+let id = '';
 const formHomePage = () => {
-  const post = document.getElementById('post-description').value;
-  if (editStatus) {
-    console.log('updating');
+  const postEditSave = document.getElementById('post-description').value;
+  if (!editStatus) {
+    savePost(postEditSave);
   } else {
-    savePost(post);
+    updatePost(id, { post: postEditSave });
+    editStatus = false;
   }
 };
 
@@ -36,12 +40,6 @@ export const homepage = () => {
   message.textContent = 'Bienvenidx';
   btnPost.textContent = 'Publicar';
 
-  btnPost.addEventListener('click', (e) => {
-    e.preventDefault();
-    formHomePage();
-    inputDescription.value = '';
-  });
-
   onGetPost((querySnapshot) => {
     divPosts.innerHTML = '';
     querySnapshot.forEach((doc) => {
@@ -60,14 +58,24 @@ export const homepage = () => {
     });
 
     const editPost = divPosts.querySelectorAll('.btn-edit');
+    console.log(editPost);
     editPost.forEach((btn) => {
       btn.addEventListener('click', async (e) => {
         const postId = await getPost(e.target.data);
         const postInfo = postId.data();
         inputDescription.value = postInfo.post;
         editStatus = true;
+        id = postId.id;
       });
     });
+  });
+  btnPost.textContent = 'Publicar';
+
+  btnPost.addEventListener('click', (e) => {
+    e.preventDefault();
+    formHomePage();
+
+    inputDescription.value = '';
   });
 
   divHomePage.append(
