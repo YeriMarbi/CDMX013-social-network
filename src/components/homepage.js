@@ -5,6 +5,7 @@ const formHomePage = () => {
   savePost(post);
 };
 
+let editStatus = false;
 export const homepage = () => {
   const divPosts = document.createElement('div');
   divPosts.className = 'div-posts';
@@ -34,6 +35,12 @@ export const homepage = () => {
   btnPost.addEventListener('click', (e) => {
     e.preventDefault();
     formHomePage();
+
+    if (editStatus) {
+      console.log('updating');
+    } else {
+      savePost(post);
+    }
     inputDescription.value = '';
   });
 
@@ -58,7 +65,11 @@ export const homepage = () => {
     editPost.forEach((btn) => {
       btn.addEventListener('click', async (e) => {
         const postId = await getPost(e.target.data);
-        console.log(postId.data());
+        const postInfo = postId.data();
+        console.log(postInfo);
+
+        inputDescription.value = postInfo.post;
+        editStatus = true;
       });
     });
   });
