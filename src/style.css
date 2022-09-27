@@ -357,11 +357,27 @@
         border: none;
     }
     
-    .card {
+    .div-posts {
         background-color: #ffffff60;
         width: 80vw;
         margin: 2vh;
         padding: 1vh;
         border-radius: 2vw;
+        display:grid;
+        grid-template-rows: 10vh 5vh;
+        grid-template-areas: 
+        "header | main ";
     }
-}
+    }
+
+
+    
+
+    .btn-delete{
+        background-image: url('./img/delete.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 4vh;
+        height: 4vh;
+
+    }

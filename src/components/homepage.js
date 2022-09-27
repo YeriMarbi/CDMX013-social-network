@@ -6,7 +6,6 @@ let editStatus = false;
 let id = '';
 const formHomePage = () => {
   const postEditSave = document.getElementById('post-description').value;
-  // inputDescription.value = '';
   if (!editStatus) {
     savePost(postEditSave);
   } else {
@@ -44,31 +43,28 @@ export const homepage = () => {
   onGetPost((querySnapshot) => {
     divPosts.innerHTML = '';
     querySnapshot.forEach((doc) => {
-      // console.log(doc.id);
       const collectionPost = doc.data();
-      const allPost = document.createElement('section');
-      allPost.className = 'card-post';
+
       const postContent = document.createElement('p');
       postContent.textContent = collectionPost.post;
       const editBtn = document.createElement('button');
       editBtn.className = 'btn-edit';
       editBtn.data = ('data-id', doc.id);
+      console.log(editBtn.data);
       editBtn.textContent = 'Editar';
       const deleteBtn = document.createElement('button');
       deleteBtn.className = 'btn-delete';
       deleteBtn.data = ('data-id', doc.id);
-      deleteBtn.textContent = 'Eliminar';
 
-      divPosts.append(allPost, postContent, editBtn, deleteBtn);
+      divPosts.append(postContent, editBtn, deleteBtn);
     });
 
     const editPost = divPosts.querySelectorAll('.btn-edit');
+    console.log(editPost);
     editPost.forEach((btn) => {
       btn.addEventListener('click', async (e) => {
         const postId = await getPost(e.target.data);
         const postInfo = postId.data();
-        console.log(postInfo);
-
         inputDescription.value = postInfo.post;
         editStatus = true;
         id = postId.id;
@@ -79,9 +75,20 @@ export const homepage = () => {
     console.log(btnsDelete);
     btnsDelete.forEach((btn) => {
       btn.addEventListener('click', ({ target: { data } }) => {
-        if (window.confirm('¿Deseas eliminar este Post?')) {
-          deletePost(data);
-        }
+      const modal = document.createElement('section');
+        modal.className = 'modal-class';
+        const textModal = document.createElement('h3');
+        const cancelbtn = document.createElement('button');
+        const okbtn = document.createElement('button');
+        okbtn.textContent = 'Eliminar';
+        cancelbtn.textContent = 'Cancelar';
+        textModal.textContent = 'Deseas eliminar este Post?';
+        //okbtn.onclick = deletePost(data);
+
+        divPosts.append(modal);
+        modal.append(textModal, cancelbtn, okbtn);
+
+        // deletePost(data);
       });
     });
   });
