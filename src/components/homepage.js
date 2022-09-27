@@ -75,7 +75,20 @@ export const homepage = () => {
     console.log(btnsDelete);
     btnsDelete.forEach((btn) => {
       btn.addEventListener('click', ({ target: { data } }) => {
-        deletePost(data);
+        const modal = document.createElement('section');
+        modal.className = 'modal-class';
+        const textModal = document.createElement('h3');
+        const cancelbtn = document.createElement('button');
+        const okbtn = document.createElement('button');
+        okbtn.textContent = 'Eliminar';
+        cancelbtn.textContent = 'Cancelar';
+        textModal.textContent = 'Deseas eliminar este Post?';
+        //okbtn.onclick = deletePost(data);
+
+        divPosts.append(modal);
+        modal.append(textModal, cancelbtn, okbtn);
+
+        // deletePost(data);
       });
     });
   });

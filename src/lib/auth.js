@@ -18,7 +18,7 @@ export const registerWithGoogle = () => signInWithPopup(auth, provider);
 export const userLogin = (email, password) => signInWithEmailAndPassword(auth, email, password);
 
 export const savePost = (post) => {
-  addDoc(collection(db, 'posts'), { post, createdAt: serverTimestamp() });
+  addDoc(collection(db, 'posts'), { post, createdAt: serverTimestamp(), userEmail: auth.currentUser.email });
 };
 const order = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), limit(10));
 
@@ -33,6 +33,7 @@ export function loginStateUser() {
       onNavigate('/homepage');
     } else {
       console.log('no existe usuario activo');
+      onNavigate('/');
     }
   });
 }
