@@ -75,7 +75,7 @@ export const homepage = () => {
     console.log(btnsDelete);
     btnsDelete.forEach((btn) => {
       btn.addEventListener('click', ({ target: { data } }) => {
-        const modal = document.createElement('section');
+      const modal = document.createElement('section');
         modal.className = 'modal-class';
         const textModal = document.createElement('h3');
         const cancelbtn = document.createElement('button');
