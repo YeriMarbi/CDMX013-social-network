@@ -1,9 +1,10 @@
 /* eslint-disable max-len */
 import {
-  getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged,
+  getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword,
+  signInWithEmailAndPassword, onAuthStateChanged,
 } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js';
 import {
-  getFirestore, collection, addDoc, getDocs, onSnapshot,
+  getFirestore, collection, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp, getDoc, doc, updateDoc, deleteDoc,
 } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-firestore.js';
 import { onNavigate } from '../main.js';
 import { app } from './firebase.js';
@@ -17,13 +18,11 @@ export const registerWithGoogle = () => signInWithPopup(auth, provider);
 export const userLogin = (email, password) => signInWithEmailAndPassword(auth, email, password);
 
 export const savePost = (post) => {
-  addDoc(collection(db, 'posts'), { post });
+  addDoc(collection(db, 'posts'), { post, createdAt: serverTimestamp() });
 };
+const order = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), limit(10));
 
-export const getPost = () => getDocs(collection(db, 'posts'));
-export const onGetPost = (callback) => onSnapshot(collection(db, 'posts'), callback);
-
-// export const observador = () => onAuthStateChanged(auth, (user));
+export const onGetPost = (callback) => onSnapshot(order, callback);
 
 export function loginStateUser() {
   onAuthStateChanged(auth, (user) => {
@@ -38,21 +37,6 @@ export function loginStateUser() {
   });
 }
 
-// export const observador = () => onAuthStateChanged(auth, (user));
-
-// observador() {
-//     if (user) {
-//       // User is signed in, see docs for a list of available properties
-//       // https://firebase.google.com/docs/reference/js/firebase.User
-//       const uid = user.uid;
-//       const email = user.email;
-//       console.log('Existe un usuario activo', uid, email);
-//       onNavigate('/');
-//       // ...
-//     } else {
-//       // User is signed out
-//       // ...
-//       console.log('no existe usuario activo');
-//       onNavigate('/');
-//     }
-//   }
+export const getPost = (id) => getDoc(doc(db, 'posts', id));
+export const updatePost = (id, newFields) => updateDoc(doc(db, 'posts', id), newFields);
+export const deletePost = (id) => deleteDoc(doc(db, 'posts', id));
