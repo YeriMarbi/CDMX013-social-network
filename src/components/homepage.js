@@ -25,7 +25,7 @@ function modalDelete(item) {
   const okbtn = document.createElement('button');
   okbtn.className = 'btnok';
   okbtn.textContent = 'Eliminar';
-  okbtn.data = ('data-id', item);
+  okbtn.data = (item);
   cancelbtn.textContent = 'Cancelar';
 
   textModal.textContent = '¿Deseas eliminar este Post?';
@@ -79,6 +79,9 @@ export const homepage = () => {
     divPosts.innerHTML = '';
     querySnapshot.forEach((doc) => {
       const collectionPost = doc.data();
+      const user = collectionPost.userEmail;
+      const showEmail = document.createElement('p');
+      showEmail.textContent = user;
       const allPosts = document.createElement('section');
       allPosts.className = 'containerPost';
       const postContent = document.createElement('p');
@@ -89,7 +92,11 @@ export const homepage = () => {
       const deleteBtn = document.createElement('button');
       deleteBtn.className = 'btn-delete';
       deleteBtn.data = ('data-id', doc.id);
-      allPosts.append(postContent, editBtn, deleteBtn);
+      const likeBtn = document.createElement('button');
+      likeBtn.className = 'btn-like';
+      likeBtn.data = ('data-id', doc.id);
+      likeBtn.textContent = 'like';
+      allPosts.append(showEmail, postContent, likeBtn, editBtn, deleteBtn);
       divPosts.append(allPosts);
     });
 
