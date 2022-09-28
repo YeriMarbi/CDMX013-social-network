@@ -33,6 +33,7 @@ export function loginStateUser() {
       onNavigate('/homepage');
     } else {
       console.log('no existe usuario activo');
+      onNavigate('/');
     }
   });
 }

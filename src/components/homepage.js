@@ -5,36 +5,38 @@ import {
 let editStatus = false;
 let id = '';
 
-function closeModal() {
+const closeModal = () => {
   const divPosts = document.getElementById('div-View');
-  const modalPadre = document.getElementById('modal-content');
-  divPosts.removeChild(modalPadre);
-}
+  const modalContainer = document.getElementById('modal-content');
+  divPosts.removeChild(modalContainer);
+};
 function modalDelete(item) {
   const divPosts = document.getElementById('div-View');
-  const modalPadre = document.createElement('section');
-  modalPadre.className = 'modal-class';
-  modalPadre.id = 'modal-content';
-  const modalHijo = document.createElement('section');
-  modalHijo.className = 'modalHijo-class';
-  modalHijo.id = 'modalHijo-content';
+  const modalContainer = document.createElement('section');
+  modalContainer.className = 'modal-class';
+  modalContainer.id = 'modal-content';
+  const modalPopup = document.createElement('section');
+  modalPopup.className = 'modalHijo-class';
+  modalPopup.id = 'modalHijo-content';
   const textModal = document.createElement('h3');
   const cancelbtn = document.createElement('button');
   cancelbtn.className = 'btnCancel';
+
   const okbtn = document.createElement('button');
   okbtn.className = 'btnok';
   okbtn.textContent = 'Eliminar';
   okbtn.data = ('data-id', item);
   cancelbtn.textContent = 'Cancelar';
 
-  textModal.textContent = 'Deseas eliminar este Post?';
+  textModal.textContent = '¿Deseas eliminar este Post?';
   okbtn.addEventListener('click', ({ target: { data } }) => {
     deletePost(data);
   });
 
-  modalHijo.append(textModal, cancelbtn, okbtn);
-  divPosts.appendChild(modalPadre);
-  modalPadre.appendChild(modalHijo);
+  cancelbtn.addEventListener('click', closeModal);
+  modalPopup.append(textModal, cancelbtn, okbtn);
+  divPosts.appendChild(modalContainer);
+  modalContainer.appendChild(modalPopup);
 }
 
 const formHomePage = () => {
@@ -77,23 +79,21 @@ export const homepage = () => {
     divPosts.innerHTML = '';
     querySnapshot.forEach((doc) => {
       const collectionPost = doc.data();
-
+      const allPosts = document.createElement('section');
+      allPosts.className = 'containerPost';
       const postContent = document.createElement('p');
       postContent.textContent = collectionPost.post;
       const editBtn = document.createElement('button');
       editBtn.className = 'btn-edit';
       editBtn.data = ('data-id', doc.id);
-      console.log(editBtn.data);
-      editBtn.textContent = 'Editar';
       const deleteBtn = document.createElement('button');
       deleteBtn.className = 'btn-delete';
       deleteBtn.data = ('data-id', doc.id);
-
-      divPosts.append(postContent, editBtn, deleteBtn);
+      allPosts.append(postContent, editBtn, deleteBtn);
+      divPosts.append(allPosts);
     });
 
     const editPost = divPosts.querySelectorAll('.btn-edit');
-    console.log(editPost);
     editPost.forEach((btn) => {
       btn.addEventListener('click', async (e) => {
         const postId = await getPost(e.target.data);
@@ -106,7 +106,6 @@ export const homepage = () => {
     });
 
     const btnsDelete = divPosts.querySelectorAll('.btn-delete');
-    console.log(btnsDelete);
     btnsDelete.forEach((btn) => {
       btn.addEventListener('click', (e) => {
         (modalDelete(e.target.data));
@@ -117,7 +116,6 @@ export const homepage = () => {
   btnPost.addEventListener('click', (e) => {
     e.preventDefault();
     formHomePage();
-
     inputDescription.value = '';
     btnPost.innerText = 'Publicar';
   });
