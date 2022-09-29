@@ -102,13 +102,13 @@ export const homepage = () => {
       likeBtn.addEventListener('click', async (e) => {
         console.log(e.target.data);
         console.log(collectionPost.likes.includes(e.target.data));
-        count++;
+        const result = count++;
         console.log(count);
-        if (count % 2 !== 0) {
+        // if (result % 2 !== 0) {
           await likesPost(e.target.data, collectionPost.likes.includes(e.target.data));
-        } else {
-          await dislikesPost(e.target.data, collectionPost.likes.includes(e.target.data));
-        }
+        // } else {
+        //   await dislikesPost(e.target.data, collectionPost.likes.includes(e.target.data));
+        // }
       });
 
       allPosts.append(showEmail, postContent, likeBtn, editBtn, deleteBtn);
