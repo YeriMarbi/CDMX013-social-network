@@ -1,5 +1,5 @@
 import {
-  savePost, onGetPost, getPost, updatePost, deletePost,
+  savePost, onGetPost, getPost, updatePost, deletePost, likesPost, dislikesPost,
 } from '../lib/auth.js';
 
 let editStatus = false;
@@ -98,6 +98,19 @@ export const homepage = () => {
       likeBtn.className = 'btn-like';
       likeBtn.data = ('data-id', doc.id);
       likeBtn.textContent = 'like';
+      let count = 0;
+      likeBtn.addEventListener('click', async (e) => {
+        console.log(e.target.data);
+        console.log(collectionPost.likes.includes(e.target.data));
+        count++;
+        console.log(count);
+        if (count % 2 !== 0) {
+          await likesPost(e.target.data, collectionPost.likes.includes(e.target.data));
+        } else {
+          await dislikesPost(e.target.data, collectionPost.likes.includes(e.target.data));
+        }
+      });
+
       allPosts.append(showEmail, postContent, likeBtn, editBtn, deleteBtn);
       divPosts.append(allPosts);
     });
@@ -127,6 +140,18 @@ export const homepage = () => {
     formHomePage();
     inputDescription.value = '';
     btnPost.innerText = 'Publicar';
+  });
+
+  const editPost = divPosts.querySelectorAll('.btn-edit');
+  editPost.forEach((btn) => {
+    btn.addEventListener('click', async (e) => {
+      const postId = await getPost(e.target.data);
+      const postInfo = postId.data();
+      inputDescription.value = postInfo.post;
+      editStatus = true;
+      id = postId.id;
+      btnPost.innerText = 'Guardar';
+    });
   });
 
   divHomePage.append(
