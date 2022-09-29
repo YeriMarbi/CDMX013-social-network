@@ -50,3 +50,10 @@ export const likesPost = async (iddocument, option) => {
     likes: arrayUnion(auth.currentUser.email),
   });
 };
+
+export const dislikesPost = async (iddocument, option) => {
+  const Postlike = doc(db, 'posts', iddocument);
+  await updateDoc(Postlike, {
+    likes: arrayRemove(auth.currentUser.email),
+  });
+};

@@ -1,5 +1,5 @@
 import {
-  savePost, onGetPost, getPost, updatePost, deletePost, likesPost
+  savePost, onGetPost, getPost, updatePost, deletePost, likesPost, dislikesPost,
 } from '../lib/auth.js';
 
 let editStatus = false;
@@ -98,11 +98,19 @@ export const homepage = () => {
       likeBtn.className = 'btn-like';
       likeBtn.data = ('data-id', doc.id);
       likeBtn.textContent = 'like';
-      likeBtn.addEventListener('click', async(e) => {
+      let count = 0;
+      likeBtn.addEventListener('click', async (e) => {
         console.log(e.target.data);
         console.log(collectionPost.likes.includes(e.target.data));
-        await likesPost(e.target.data, collectionPost.likes.includes(e.target.data));
+        count++;
+        console.log(count);
+        if (count % 2 !== 0) {
+          await likesPost(e.target.data, collectionPost.likes.includes(e.target.data));
+        } else {
+          await dislikesPost(e.target.data, collectionPost.likes.includes(e.target.data));
+        }
       });
+
       allPosts.append(showEmail, postContent, likeBtn, editBtn, deleteBtn);
       divPosts.append(allPosts);
     });
@@ -125,13 +133,6 @@ export const homepage = () => {
         (modalDelete(e.target.data));
       });
     });
-    // const btnslikes = divPosts.querySelectorAll('.btn-like');
-    // btnslikes.forEach((btn) => {
-    // btn.addEventListener('click', (e) => {
-    // (likesPost(e.target.data));
-    // });
-    // });
-  // });
   });
 
   btnPost.addEventListener('click', (e) => {
