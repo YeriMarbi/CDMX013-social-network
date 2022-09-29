@@ -1,5 +1,5 @@
 import {
-  savePost, onGetPost, getPost, updatePost, deletePost, 
+  savePost, onGetPost, getPost, updatePost, deletePost, likesPost
 } from '../lib/auth.js';
 
 let editStatus = false;
@@ -98,6 +98,11 @@ export const homepage = () => {
       likeBtn.className = 'btn-like';
       likeBtn.data = ('data-id', doc.id);
       likeBtn.textContent = 'like';
+      likeBtn.addEventListener('click', async(e) => {
+        console.log(e.target.data);
+        console.log(collectionPost.likes.includes(e.target.data));
+        await likesPost(e.target.data, collectionPost.likes.includes(e.target.data));
+      });
       allPosts.append(showEmail, postContent, likeBtn, editBtn, deleteBtn);
       divPosts.append(allPosts);
     });
@@ -120,16 +125,14 @@ export const homepage = () => {
         (modalDelete(e.target.data));
       });
     });
-    const btnslikes = divPosts.querySelectorAll('.btn-like');
-    btnslikes.forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        (likesPost(e.target.data));
-      });
-    });
+    // const btnslikes = divPosts.querySelectorAll('.btn-like');
+    // btnslikes.forEach((btn) => {
+    // btn.addEventListener('click', (e) => {
+    // (likesPost(e.target.data));
+    // });
+    // });
+  // });
   });
-  });
-
-  
 
   btnPost.addEventListener('click', (e) => {
     e.preventDefault();
@@ -138,17 +141,17 @@ export const homepage = () => {
     btnPost.innerText = 'Publicar';
   });
 
-  const  = divPosts.querySelectorAll('.btn-edit');
-    editPost.forEach((btn) => {
-      btn.addEventListener('click', async (e) => {
-        const postId = await getPost(e.target.data);
-        const postInfo = postId.data();
-        inputDescription.value = postInfo.post;
-        editStatus = true;
-        id = postId.id;
-        btnPost.innerText = 'Guardar';
-      });
+  const editPost = divPosts.querySelectorAll('.btn-edit');
+  editPost.forEach((btn) => {
+    btn.addEventListener('click', async (e) => {
+      const postId = await getPost(e.target.data);
+      const postInfo = postId.data();
+      inputDescription.value = postInfo.post;
+      editStatus = true;
+      id = postId.id;
+      btnPost.innerText = 'Guardar';
     });
+  });
 
   divHomePage.append(
     imgLogo,

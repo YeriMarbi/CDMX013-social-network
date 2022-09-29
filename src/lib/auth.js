@@ -44,9 +44,9 @@ export const getPost = (id) => getDoc(doc(db, 'posts', id));
 export const updatePost = (id, newFields) => updateDoc(doc(db, 'posts', id), newFields);
 export const deletePost = (id) => deleteDoc(doc(db, 'posts', id));
 
-export const likesPost = () => updateDoc(doc(db, 'posts', id)
-await updateDoc(likesPost, {
-  likes: arrayUnion(uid)});
-  await updateDoc(likesPost, {
-    likes: arrayRemove(uid)
-});
+export const likesPost = async (iddocument, option) => {
+  const Postlike = doc(db, 'posts', iddocument);
+  await updateDoc(Postlike, {
+    likes: arrayUnion(auth.currentUser.email),
+  });
+};
