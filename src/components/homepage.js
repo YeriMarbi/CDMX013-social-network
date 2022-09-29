@@ -82,6 +82,8 @@ export const homepage = () => {
     querySnapshot.forEach((doc) => {
       const collectionPost = doc.data();
       const user = collectionPost.userEmail;
+      const userId = collectionPost.id;
+      console.log(userId);
       const showEmail = document.createElement('p');
       showEmail.textContent = user;
       const allPosts = document.createElement('section');
@@ -98,20 +100,23 @@ export const homepage = () => {
       likeBtn.className = 'btn-like';
       likeBtn.data = ('data-id', doc.id);
       likeBtn.textContent = 'like';
-      let count = 0;
+      // let count = 0;
       likeBtn.addEventListener('click', async (e) => {
-        console.log(e.target.data);
-        console.log(collectionPost.likes.includes(e.target.data));
-        count++;
-        console.log(count);
-        if (count % 2 !== 0) {
-          await likesPost(e.target.data, collectionPost.likes.includes(e.target.data));
+        // console.log(e.target.data);
+        console.log(collectionPost.likes.includes(userId));
+        // eslint-disable-next-line no-plusplus
+        // count++;
+        // console.log(count);
+        if (collectionPost.likes.includes(userId)) {
+          await dislikesPost(e.target.data);
         } else {
-          await dislikesPost(e.target.data, collectionPost.likes.includes(e.target.data));
+          await likesPost(e.target.data);
         }
       });
+      const counterLikes = document.createElement('p');
+      counterLikes.textContent = collectionPost.likes.length;
 
-      allPosts.append(showEmail, postContent, likeBtn, editBtn, deleteBtn);
+      allPosts.append(showEmail, postContent, likeBtn, counterLikes, editBtn, deleteBtn);
       divPosts.append(allPosts);
     });
 
