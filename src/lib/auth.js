@@ -4,7 +4,7 @@ import {
   signInWithEmailAndPassword, onAuthStateChanged,
 } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js';
 import {
-  getFirestore, collection, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp, getDoc, doc, updateDoc, deleteDoc,
+  getFirestore, collection, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp, getDoc, doc, updateDoc, deleteDoc, arrayUnion, arrayRemove,
 } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-firestore.js';
 import { onNavigate } from '../main.js';
 import { app } from './firebase.js';
@@ -18,7 +18,9 @@ export const registerWithGoogle = () => signInWithPopup(auth, provider);
 export const userLogin = (email, password) => signInWithEmailAndPassword(auth, email, password);
 
 export const savePost = (post) => {
-  addDoc(collection(db, 'posts'), { post, createdAt: serverTimestamp(), userEmail: auth.currentUser.email });
+  addDoc(collection(db, 'posts'), {
+    post, createdAt: serverTimestamp(), userEmail: auth.currentUser.email, likes: [],
+  });
 };
 const order = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), limit(10));
 
@@ -41,3 +43,10 @@ export function loginStateUser() {
 export const getPost = (id) => getDoc(doc(db, 'posts', id));
 export const updatePost = (id, newFields) => updateDoc(doc(db, 'posts', id), newFields);
 export const deletePost = (id) => deleteDoc(doc(db, 'posts', id));
+
+export const likesPost = () => updateDoc(doc(db, 'posts', id)
+await updateDoc(likesPost, {
+  likes: arrayUnion(uid)});
+  await updateDoc(likesPost, {
+    likes: arrayRemove(uid)
+});

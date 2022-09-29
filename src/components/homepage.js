@@ -1,5 +1,5 @@
 import {
-  savePost, onGetPost, getPost, updatePost, deletePost,
+  savePost, onGetPost, getPost, updatePost, deletePost, 
 } from '../lib/auth.js';
 
 let editStatus = false;
@@ -120,7 +120,16 @@ export const homepage = () => {
         (modalDelete(e.target.data));
       });
     });
+    const btnslikes = divPosts.querySelectorAll('.btn-like');
+    btnslikes.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        (likesPost(e.target.data));
+      });
+    });
   });
+  });
+
+  
 
   btnPost.addEventListener('click', (e) => {
     e.preventDefault();
@@ -128,6 +137,18 @@ export const homepage = () => {
     inputDescription.value = '';
     btnPost.innerText = 'Publicar';
   });
+
+  const  = divPosts.querySelectorAll('.btn-edit');
+    editPost.forEach((btn) => {
+      btn.addEventListener('click', async (e) => {
+        const postId = await getPost(e.target.data);
+        const postInfo = postId.data();
+        inputDescription.value = postInfo.post;
+        editStatus = true;
+        id = postId.id;
+        btnPost.innerText = 'Guardar';
+      });
+    });
 
   divHomePage.append(
     imgLogo,
