@@ -73,7 +73,8 @@ export const homepage = () => {
   inputDescription.setAttribute('placeholder', 'Escribe algo...');
   const btnPost = document.createElement('button');
   btnPost.id = 'btn-post-save';
-
+  const messageErrorPost = document.createElement('p');
+  messageErrorPost.className = 'messageError';
   message.textContent = 'Bienvenidx';
   btnPost.innerText = 'Publicar';
 
@@ -82,7 +83,6 @@ export const homepage = () => {
     querySnapshot.forEach((doc) => {
       const collectionPost = doc.data();
       const user = collectionPost.userEmail;
-      const userId = collectionPost.id;
       const showEmail = document.createElement('p');
       showEmail.textContent = user;
       const allPosts = document.createElement('section');
@@ -139,10 +139,15 @@ export const homepage = () => {
   });
 
   btnPost.addEventListener('click', (e) => {
-    e.preventDefault();
-    formHomePage();
-    inputDescription.value = '';
-    btnPost.innerText = 'Publicar';
+    if (inputDescription.value === '') {
+      messageErrorPost.innerText = 'No se puede hacer una publicación vacía';
+    } else {
+      e.preventDefault();
+      formHomePage();
+      inputDescription.value = '';
+      btnPost.innerText = 'Publicar';
+      messageErrorPost.innerText = '';
+    }
   });
 
   const editPost = divPosts.querySelectorAll('.btn-edit');
@@ -165,6 +170,7 @@ export const homepage = () => {
     labelDescription,
     inputDescription,
     btnPost,
+    messageErrorPost,
     divPosts,
   );
   return divHomePage;
