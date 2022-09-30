@@ -364,6 +364,14 @@
         margin: 3.5vh;
         padding: 2.5vh;
         border-radius: 2vw;
+        display: grid;
+        position: relative;
+    }
+
+    .containerBtnPosts{
+        background-color: transparent;
+        align-self: flex-end;
+        position: absolute;
     }
     
     .btn-delete{
@@ -398,7 +406,7 @@
         padding: 2vh;
         background-color: #40888E;
         border: none;
-        margin: 2vh;
+        margin: 1vh;
         color: aliceblue
     }
 
@@ -413,4 +421,24 @@
         background-color: transparent;
         margin-right: 3vw;
     }
+
+    .btn-like{
+        background-image: url('./img/liksss.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 5vh;
+        height: 4vh;
+        border: none;
+        background-color: transparent;
+        color: #f4f3f3;
+        font-weight: bolder;
+    }
+
+    .showEmail{
+        color: #031719;
+        font-style: italic;
+        font-size: 2vh;
+        font-weight: bolder;
+    }
+  
 }

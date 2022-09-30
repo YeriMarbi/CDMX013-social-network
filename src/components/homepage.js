@@ -1,5 +1,6 @@
 import {
-  savePost, onGetPost, getPost, updatePost, deletePost, likesPost, dislikesPost, emailUser,
+  savePost, onGetPost, getPost, updatePost, deletePost, likesPost, dislikesPost,
+  emailUser, singOutSession,
 } from '../lib/auth.js';
 
 let editStatus = false;
@@ -77,6 +78,15 @@ export const homepage = () => {
   messageErrorPost.className = 'messageError';
   message.textContent = 'Bienvenidx';
   btnPost.innerText = 'Publicar';
+  const containerBtnPosts = document.createElement('section');
+  containerBtnPosts.className = 'containerBtnPosts';
+  const btnCloseSession = document.createElement('button');
+  btnCloseSession.textContent = 'Cerrar Sesion';
+  btnCloseSession.className = 'CloseSession';
+
+  btnCloseSession.addEventListener('click', () => {
+    singOutSession()
+  });
 
   onGetPost((querySnapshot) => {
     divPosts.innerHTML = '';
@@ -85,6 +95,7 @@ export const homepage = () => {
       const user = collectionPost.userEmail;
       const showEmail = document.createElement('p');
       showEmail.textContent = user;
+      showEmail.className = 'showEmail';
       const allPosts = document.createElement('section');
       allPosts.className = 'containerPost';
       const postContent = document.createElement('p');
@@ -92,7 +103,7 @@ export const homepage = () => {
       const likeBtn = document.createElement('button');
       likeBtn.className = 'btn-like';
       likeBtn.data = ('data-id', doc.id);
-      likeBtn.textContent = 'like';
+      likeBtn.textContent = collectionPost.likes.length;
       const emailString = emailUser.toString();
       if (user === emailString) {
         const editBtn = document.createElement('button');
@@ -101,7 +112,8 @@ export const homepage = () => {
         const deleteBtn = document.createElement('button');
         deleteBtn.className = 'btn-delete';
         deleteBtn.data = ('data-id', doc.id);
-        allPosts.append(editBtn, deleteBtn);
+        containerBtnPosts.append(editBtn, deleteBtn);
+        allPosts.append(containerBtnPosts);
       }
       likeBtn.addEventListener('click', async (e) => {
         console.log(collectionPost.likes.includes(emailString));
@@ -111,10 +123,8 @@ export const homepage = () => {
           await likesPost(e.target.data);
         }
       });
-      const counterLikes = document.createElement('p');
-      counterLikes.textContent = collectionPost.likes.length;
 
-      allPosts.append(showEmail, postContent, likeBtn, counterLikes);
+      allPosts.append(showEmail, postContent, likeBtn);
       divPosts.append(allPosts);
     });
 
@@ -163,6 +173,7 @@ export const homepage = () => {
   });
 
   divHomePage.append(
+    btnCloseSession,
     imgLogo,
     message,
     formHome,
