@@ -83,9 +83,6 @@ export const homepage = () => {
       const collectionPost = doc.data();
       const user = collectionPost.userEmail;
       const userId = collectionPost.id;
-      console.log(collectionPost);
-      console.log(userId);
-      console.log('user', typeof (user));
       const showEmail = document.createElement('p');
       showEmail.textContent = user;
       const allPosts = document.createElement('section');
@@ -106,15 +103,9 @@ export const homepage = () => {
         deleteBtn.data = ('data-id', doc.id);
         allPosts.append(editBtn, deleteBtn);
       }
-      console.log('emailUser', emailUser);
-      // let count = 0;
       likeBtn.addEventListener('click', async (e) => {
-        // console.log(e.target.data);
-        console.log(collectionPost.likes.includes(userId));
-        // eslint-disable-next-line no-plusplus
-        // count++;
-        // console.log(count);
-        if (collectionPost.likes.includes(userId)) {
+        console.log(collectionPost.likes.includes(emailString));
+        if (collectionPost.likes.includes(emailString)) {
           await dislikesPost(e.target.data);
         } else {
           await likesPost(e.target.data);
