@@ -25,13 +25,14 @@ export const savePost = (post) => {
 const order = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), limit(10));
 
 export const onGetPost = (callback) => onSnapshot(order, callback);
-export const emailUser = '';
-
+export const emailUser = [];
 export function loginStateUser() {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       const uid = user.uid;
+      console.log('uid', uid);
       const email = user.email;
+      emailUser.push(email);
       console.log('Existe un usuario activo', uid, email);
       onNavigate('/homepage');
     } else {
@@ -48,13 +49,13 @@ export const deletePost = (id) => deleteDoc(doc(db, 'posts', id));
 export const likesPost = async (iddocument) => {
   const Postlike = doc(db, 'posts', iddocument);
   await updateDoc(Postlike, {
-    likes: arrayUnion(auth.currentUser.uid),
+    likes: arrayUnion(auth.currentUser.email),
   });
 };
 
 export const dislikesPost = async (iddocument) => {
   const Postlike = doc(db, 'posts', iddocument);
   await updateDoc(Postlike, {
-    likes: arrayRemove(auth.currentUser.uid),
+    likes: arrayRemove(auth.currentUser.email),
   });
 };

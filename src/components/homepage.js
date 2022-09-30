@@ -1,5 +1,5 @@
 import {
-  savePost, onGetPost, getPost, updatePost, deletePost, likesPost, dislikesPost,
+  savePost, onGetPost, getPost, updatePost, deletePost, likesPost, dislikesPost, emailUser,
 } from '../lib/auth.js';
 
 let editStatus = false;
@@ -83,30 +83,38 @@ export const homepage = () => {
       const collectionPost = doc.data();
       const user = collectionPost.userEmail;
       const userId = collectionPost.id;
+      console.log(collectionPost);
+      console.log(userId);
+      console.log('user', typeof (user));
       const showEmail = document.createElement('p');
       showEmail.textContent = user;
       const allPosts = document.createElement('section');
       allPosts.className = 'containerPost';
       const postContent = document.createElement('p');
       postContent.textContent = collectionPost.post;
-      const editBtn = document.createElement('button');
-      editBtn.className = 'btn-edit';
-      editBtn.data = ('data-id', doc.id);
-      const deleteBtn = document.createElement('button');
-      deleteBtn.className = 'btn-delete';
-      deleteBtn.data = ('data-id', doc.id);
       const likeBtn = document.createElement('button');
       likeBtn.className = 'btn-like';
       likeBtn.data = ('data-id', doc.id);
       likeBtn.textContent = 'like';
+      const emailString = emailUser.toString();
+      if (user === emailString) {
+        const editBtn = document.createElement('button');
+        editBtn.className = 'btn-edit';
+        editBtn.data = ('data-id', doc.id);
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'btn-delete';
+        deleteBtn.data = ('data-id', doc.id);
+        allPosts.append(editBtn, deleteBtn);
+      }
+      console.log('emailUser', emailUser);
       // let count = 0;
       likeBtn.addEventListener('click', async (e) => {
         // console.log(e.target.data);
-        console.log(collectionPost.likes.includes(userId));
+        console.log(collectionPost.likes.includes(emailString));
         // eslint-disable-next-line no-plusplus
         // count++;
         // console.log(count);
-        if (collectionPost.likes.includes(userId)) {
+        if (collectionPost.likes.includes(emailString)) {
           await dislikesPost(e.target.data);
         } else {
           await likesPost(e.target.data);
@@ -115,7 +123,7 @@ export const homepage = () => {
       const counterLikes = document.createElement('p');
       counterLikes.textContent = collectionPost.likes.length;
 
-      allPosts.append(showEmail, postContent, likeBtn, counterLikes, editBtn, deleteBtn);
+      allPosts.append(showEmail, postContent, likeBtn, counterLikes);
       divPosts.append(allPosts);
     });
 
