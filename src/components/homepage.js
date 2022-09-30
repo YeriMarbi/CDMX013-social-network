@@ -1,5 +1,5 @@
 import {
-  savePost, onGetPost, getPost, updatePost, deletePost,
+  savePost, onGetPost, getPost, updatePost, deletePost, likesPost, dislikesPost,
 } from '../lib/auth.js';
 
 let editStatus = false;
@@ -66,7 +66,9 @@ export const homepage = () => {
   labelTitle.className = 'title';
   const labelDescription = document.createElement('label');
   labelDescription.className = 'description';
-  const inputDescription = document.createElement('input');
+  const inputDescription = document.createElement('textarea');
+  inputDescription.setAttribute('rows', 4);
+  inputDescription.setAttribute('maxlength', 100);
   inputDescription.id = 'post-description';
   inputDescription.setAttribute('placeholder', 'Escribe algo...');
   const btnPost = document.createElement('button');
@@ -80,6 +82,7 @@ export const homepage = () => {
     querySnapshot.forEach((doc) => {
       const collectionPost = doc.data();
       const user = collectionPost.userEmail;
+      const userId = collectionPost.id;
       const showEmail = document.createElement('p');
       showEmail.textContent = user;
       const allPosts = document.createElement('section');
@@ -96,7 +99,23 @@ export const homepage = () => {
       likeBtn.className = 'btn-like';
       likeBtn.data = ('data-id', doc.id);
       likeBtn.textContent = 'like';
-      allPosts.append(showEmail, postContent, likeBtn, editBtn, deleteBtn);
+      // let count = 0;
+      likeBtn.addEventListener('click', async (e) => {
+        // console.log(e.target.data);
+        console.log(collectionPost.likes.includes(userId));
+        // eslint-disable-next-line no-plusplus
+        // count++;
+        // console.log(count);
+        if (collectionPost.likes.includes(userId)) {
+          await dislikesPost(e.target.data);
+        } else {
+          await likesPost(e.target.data);
+        }
+      });
+      const counterLikes = document.createElement('p');
+      counterLikes.textContent = collectionPost.likes.length;
+
+      allPosts.append(showEmail, postContent, likeBtn, counterLikes, editBtn, deleteBtn);
       divPosts.append(allPosts);
     });
 
@@ -125,6 +144,18 @@ export const homepage = () => {
     formHomePage();
     inputDescription.value = '';
     btnPost.innerText = 'Publicar';
+  });
+
+  const editPost = divPosts.querySelectorAll('.btn-edit');
+  editPost.forEach((btn) => {
+    btn.addEventListener('click', async (e) => {
+      const postId = await getPost(e.target.data);
+      const postInfo = postId.data();
+      inputDescription.value = postInfo.post;
+      editStatus = true;
+      id = postId.id;
+      btnPost.innerText = 'Guardar';
+    });
   });
 
   divHomePage.append(

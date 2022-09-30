@@ -19,7 +19,7 @@ export const userLogin = (email, password) => signInWithEmailAndPassword(auth, e
 
 export const savePost = (post) => {
   addDoc(collection(db, 'posts'), {
-    post, createdAt: serverTimestamp(), userEmail: auth.currentUser.email, likes: [],
+    post, createdAt: serverTimestamp(), userEmail: auth.currentUser.email, id: auth.currentUser.uid, likes: [],
   });
 };
 const order = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), limit(10));
@@ -32,7 +32,6 @@ export function loginStateUser() {
     if (user) {
       const uid = user.uid;
       const email = user.email;
-emailUser.pusgit 
       console.log('Existe un usuario activo', uid, email);
       onNavigate('/homepage');
     } else {
@@ -46,16 +45,16 @@ export const getPost = (id) => getDoc(doc(db, 'posts', id));
 export const updatePost = (id, newFields) => updateDoc(doc(db, 'posts', id), newFields);
 export const deletePost = (id) => deleteDoc(doc(db, 'posts', id));
 
-export const likesPost = async (iddocument, option) => {
+export const likesPost = async (iddocument) => {
   const Postlike = doc(db, 'posts', iddocument);
   await updateDoc(Postlike, {
-    likes: arrayUnion(auth.currentUser.email),
+    likes: arrayUnion(auth.currentUser.uid),
   });
 };
 
-export const dislikesPost = async (iddocument, option) => {
+export const dislikesPost = async (iddocument) => {
   const Postlike = doc(db, 'posts', iddocument);
   await updateDoc(Postlike, {
-    likes: arrayRemove(auth.currentUser.email),
+    likes: arrayRemove(auth.currentUser.uid),
   });
 };
