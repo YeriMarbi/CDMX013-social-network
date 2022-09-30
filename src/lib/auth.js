@@ -49,13 +49,13 @@ export const deletePost = (id) => deleteDoc(doc(db, 'posts', id));
 export const likesPost = async (iddocument) => {
   const Postlike = doc(db, 'posts', iddocument);
   await updateDoc(Postlike, {
-    likes: arrayUnion(auth.currentUser.uid),
+    likes: arrayUnion(auth.currentUser.email),
   });
 };
 
 export const dislikesPost = async (iddocument) => {
   const Postlike = doc(db, 'posts', iddocument);
   await updateDoc(Postlike, {
-    likes: arrayRemove(auth.currentUser.uid),
+    likes: arrayRemove(auth.currentUser.email),
   });
 };
