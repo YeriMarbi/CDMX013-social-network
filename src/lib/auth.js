@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import {
   getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword,
-  signInWithEmailAndPassword, onAuthStateChanged,
+  signInWithEmailAndPassword, onAuthStateChanged, signOut,
 } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js';
 import {
   getFirestore, collection, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp, getDoc, doc, updateDoc, deleteDoc, arrayUnion, arrayRemove,
@@ -26,7 +26,7 @@ const order = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), limit
 
 export const onGetPost = (callback) => onSnapshot(order, callback);
 export const emailUser = [];
-export function loginStateUser() {
+export const loginStateUser = () => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       const uid = user.uid;
@@ -40,7 +40,7 @@ export function loginStateUser() {
       onNavigate('/');
     }
   });
-}
+};
 
 export const getPost = (id) => getDoc(doc(db, 'posts', id));
 export const updatePost = (id, newFields) => updateDoc(doc(db, 'posts', id), newFields);
@@ -59,3 +59,5 @@ export const dislikesPost = async (iddocument) => {
     likes: arrayRemove(auth.currentUser.email),
   });
 };
+
+export const singOutSession = () => signOut(auth);
