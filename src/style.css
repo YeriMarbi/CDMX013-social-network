@@ -377,7 +377,6 @@
     .containerBtnPosts {
         background-color: transparent;
         align-self: flex-end;
-        grid-column: col / span 1;
         grid-row: row 3;
     }
 
@@ -459,7 +458,7 @@
     .textInPost {
         grid-row: row 2;
         font-size: 1.2em;
-        margin:1vh;
+        margin:1vh 0;
     }
 
     h4 {
@@ -491,6 +490,6 @@
     .editAndDeletePosts{
         position: absolute;
         grid-row: row 3;
-        left: 3vw;
+        left: 3.6vw;
     }
 }
