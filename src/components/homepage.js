@@ -17,7 +17,7 @@ const modalDelete = (item) => {
   modalContainer.className = 'modal-class';
   modalContainer.id = 'modal-content';
   const modalPopup = document.createElement('section');
-  modalPopup.className = 'modalHijo-class';
+  modalPopup.className = 'modalPopup-class';
   modalPopup.id = 'modalHijo-content';
   const textModal = document.createElement('h3');
   const cancelbtn = document.createElement('button');
@@ -111,15 +111,17 @@ export const homepage = () => {
       const emailString = emailUser.toString();
 
       if (user === emailString) {
-        containerBtnPosts.innerHTML = '';
+       // containerBtnPosts.innerHTML = '';
+        const editAndDeletePosts = document.createElement('section');
+        editAndDeletePosts.className = 'editAndDeletePosts';
         const editBtn = document.createElement('button');
         editBtn.className = 'btn-edit';
         editBtn.data = ('data-id', doc.id);
         const deleteBtn = document.createElement('button');
         deleteBtn.className = 'btn-delete';
         deleteBtn.data = ('data-id', doc.id);
-        containerBtnPosts.append(editBtn, deleteBtn);
-        allPosts.append(containerBtnPosts);
+        editAndDeletePosts.append(editBtn, deleteBtn);
+        allPosts.append(editAndDeletePosts);
       }
 
       likeBtn.addEventListener('click', async (e) => {
