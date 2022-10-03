@@ -1,7 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@300&family=Liu+Jian+Mao+Cao&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Yantramanav:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap');
 
 @media only screen and (min-width: 1000px) {
     body {
@@ -32,7 +30,6 @@
         left: 35vh;
     }
 
-    /* 414x736 */
     #btnReturn {
         width: 300px;
     }
@@ -141,15 +138,15 @@
         background-size: cover;
     }
 
-    .welcome, .homePage{
+    .welcome,
+    .homePage {
         display: flex;
         flex-direction: column;
         align-items: center;
         margin-top: 1vh;
     }
 
-    #createAccount
-     {
+    #createAccount {
         padding-left: 10vw;
         display: flex;
         flex-direction: column;
@@ -235,7 +232,7 @@
         margin-bottom: 13vh;
     }
 
-    #createAccount input{
+    #createAccount input {
         margin-left: 0vw;
         width: 75vw;
         height: 5vh;
@@ -243,8 +240,9 @@
         border-radius: 5px;
         background-color: #FFFFFF;
         border: none;
-        padding: 0.8vh; 
+        padding: 0.8vh;
     }
+
     .login input {
         width: 75vw;
         height: 5vh;
@@ -333,8 +331,8 @@
     #logoImgHome {
         width: 12vw;
         opacity: 0.6;
-        align-self: flex-end;
     }
+
     #btn-post-save {
         background-image: url('./img/send.png');
         background-repeat: no-repeat;
@@ -349,81 +347,91 @@
         align-self: flex-end;
         border: none;
     }
+
     #post-description {
         width: 80vw;
         height: 15vh;
         padding: 2.5vh;
         border-radius: 2vw;
-        background-color: #ffffff74;
+        background-color: #ffffff94;
         border: none;
         font-family: 'Quicksand', sans-serif;
     }
+
     .containerPost {
-        background-color: #ffffff60;
+        background-color: #ffffff94;
         width: 80vw;
         margin: 3.5vh;
         padding: 2.5vh;
         border-radius: 2vw;
         display: grid;
+        grid-template-columns: [col];
+        grid-template-rows: [row] auto [row] auto [row];
         position: relative;
     }
 
-    .containerBtnPosts{
+    .containerBtnPosts {
         background-color: transparent;
         align-self: flex-end;
-        position: absolute;
+        grid-row: row 3;
     }
-    
-    .btn-delete{
-        background-image: url('./img/delete.png');
+
+    .btn-delete {
+        background-image: url('./img/deleteredondo.png');
         background-repeat: no-repeat;
         background-size: cover;
-        width: 3vh;
-        height: 3vh;
+        width: 4vh;
+        height: 4vh;
         border: none;
+        margin-left: 2vh;
         background-color: transparent;
     }
-    .modal-class{
+
+    .modal-class {
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.703);
-        top:0;
-        left:0;
-        position: fixed; 
-        z-index: 1; 
-        overflow: auto; 
+        background-color: rgba(3, 9, 24, 0.678);
+        top: 0;
+        left: 0;
+        position: fixed;
+        z-index: 1;
+        overflow: auto;
     }
-    .modalHijo-class{
+
+    .modalPopup-class {
         background-color: #f4f3f3;
-        margin:35vh auto 0 auto;
+        margin: 35vh auto 0 auto;
         padding: 5vh;
         border-radius: 5px;
         width: 50vw;
+        font-style: normal;
     }
 
-    .btnCancel, .btnok{
-        width: 18vw;
+    .btnCancel,
+    .btnok {
+        width: 20vw;
         padding: 2vh;
         background-color: #40888E;
         border: none;
         margin: 1vh;
-        color: aliceblue
+        color: aliceblue;
+        text-align: center;
+        font-size: 0.75em;
     }
 
-    .btn-edit{
-        background-image: url('./img/edit.png');
+    .btn-edit {
+        background-image: url('./img/editexptwocolors.png');
         background-repeat: no-repeat;
         background-size: cover;
-        width: 3vh;
-        height: 3vh;
-        margin-left: 43vh;
+        width: 4vh;
+        height: 4vh;
         border: none;
         background-color: transparent;
-        margin-right: 3vw;
+        padding-bottom: -3vh;
     }
 
-    .btn-like{
-        background-image: url('./img/liksss.png');
+    .btn-like {
+        background-image: url('./img/like.png');
         background-repeat: no-repeat;
         background-size: cover;
         width: 5vh;
@@ -432,13 +440,64 @@
         background-color: transparent;
         color: #f4f3f3;
         font-weight: bolder;
+        justify-self: flex-end;
+        grid-row: row 3;
     }
 
-    .showEmail{
+    .showEmail {
         color: #031719;
-        font-style: italic;
-        font-size: 2vh;
+        font-size: 1em;
         font-weight: bolder;
+        grid-row: row 1;
+        margin: 0;
     }
-  
+
+    .textInPost {
+        grid-row: row 2;
+        font-size: 1em;
+        margin: 1.2vh 0;
+        font-weight: lighter;
+    }
+
+    .closeSession {
+        background-image: url('./img/singOut.png');
+        background-repeat: no-repeat;
+        border: none;
+        width: 20vw;
+        height: 6vh;
+        background-color: transparent;
+        opacity: 0.9;
+        color: rgb(13, 25, 56);
+        font-family: 'Quicksand';
+        background-size: 8vw;
+        text-align: right;
+        font-weight: bolder;
+        font-size: 0.9em;
+        align-self: center;
+    }
+
+    .topSection {
+        width: 100%;
+        justify-content: center;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    h1 {
+        margin:3vw;
+        color: #193B5C;
+        font-size: 1.1em;
+        font-weight: bolder;
+        text-align: center;
+        background-color: #ffffff94;
+        padding:3vw ;
+        border-radius: 8px;
+
+    }
+
+    .editAndDeletePosts {
+        position: absolute;
+        grid-row: row 3;
+        left: 55vw;
+    }
 }

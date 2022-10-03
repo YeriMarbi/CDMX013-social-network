@@ -11,18 +11,17 @@ const closeModal = () => {
   const modalContainer = document.getElementById('modal-content');
   divPosts.removeChild(modalContainer);
 };
-function modalDelete(item) {
+const modalDelete = (item) => {
   const divPosts = document.getElementById('div-View');
   const modalContainer = document.createElement('section');
   modalContainer.className = 'modal-class';
   modalContainer.id = 'modal-content';
   const modalPopup = document.createElement('section');
-  modalPopup.className = 'modalHijo-class';
+  modalPopup.className = 'modalPopup-class';
   modalPopup.id = 'modalHijo-content';
   const textModal = document.createElement('h3');
   const cancelbtn = document.createElement('button');
   cancelbtn.className = 'btnCancel';
-
   const okbtn = document.createElement('button');
   okbtn.className = 'btnok';
   okbtn.textContent = 'Eliminar';
@@ -38,7 +37,7 @@ function modalDelete(item) {
   modalPopup.append(textModal, cancelbtn, okbtn);
   divPosts.appendChild(modalContainer);
   modalContainer.appendChild(modalPopup);
-}
+};
 
 const formHomePage = () => {
   const postEditSave = document.getElementById('post-description').value;
@@ -54,12 +53,18 @@ export const homepage = () => {
   const divPosts = document.createElement('div');
   divPosts.className = 'div-posts';
   divPosts.id = 'div-View';
-  const divHomePage = document.createElement('div');
-  divHomePage.className = 'homePage';
+  const topsection = document.createElement('section');
+  topsection.className = 'topSection';
   const imgLogo = document.createElement('img');
   imgLogo.src = './img/logo.png';
   imgLogo.setAttribute('id', 'logoImgHome');
+  const btnCloseSession = document.createElement('button');
+  btnCloseSession.textContent = 'SALIR';
+  btnCloseSession.className = 'closeSession';
+  const divHomePage = document.createElement('div');
+  divHomePage.className = 'homePage';
   const message = document.createElement('h1');
+  message.textContent = `¡Bienvenidx, ${emailUser}!`;
   const formHome = document.createElement('div');
   formHome.className = 'homePage';
   formHome.id = 'post-form';
@@ -76,16 +81,13 @@ export const homepage = () => {
   btnPost.id = 'btn-post-save';
   const messageErrorPost = document.createElement('p');
   messageErrorPost.className = 'messageError';
-  message.textContent = 'Bienvenidx';
+
   btnPost.innerText = 'Publicar';
   const containerBtnPosts = document.createElement('section');
   containerBtnPosts.className = 'containerBtnPosts';
-  const btnCloseSession = document.createElement('button');
-  btnCloseSession.textContent = 'Cerrar Sesion';
-  btnCloseSession.className = 'CloseSession';
 
   btnCloseSession.addEventListener('click', () => {
-    singOutSession()
+    singOutSession();
   });
 
   onGetPost((querySnapshot) => {
@@ -100,23 +102,27 @@ export const homepage = () => {
       allPosts.className = 'containerPost';
       const postContent = document.createElement('p');
       postContent.textContent = collectionPost.post;
+      postContent.className = 'textInPost';
       const likeBtn = document.createElement('button');
       likeBtn.className = 'btn-like';
       likeBtn.data = ('data-id', doc.id);
       likeBtn.textContent = collectionPost.likes.length;
       const emailString = emailUser.toString();
+
       if (user === emailString) {
+        const editAndDeletePosts = document.createElement('section');
+        editAndDeletePosts.className = 'editAndDeletePosts';
         const editBtn = document.createElement('button');
         editBtn.className = 'btn-edit';
         editBtn.data = ('data-id', doc.id);
         const deleteBtn = document.createElement('button');
         deleteBtn.className = 'btn-delete';
         deleteBtn.data = ('data-id', doc.id);
-        containerBtnPosts.append(editBtn, deleteBtn);
-        allPosts.append(containerBtnPosts);
+        editAndDeletePosts.append(editBtn, deleteBtn);
+        allPosts.append(editAndDeletePosts);
       }
+
       likeBtn.addEventListener('click', async (e) => {
-        console.log(collectionPost.likes.includes(emailString));
         if (collectionPost.likes.includes(emailString)) {
           await dislikesPost(e.target.data);
         } else {
@@ -171,10 +177,9 @@ export const homepage = () => {
       btnPost.innerText = 'Guardar';
     });
   });
-
+  topsection.append(imgLogo, btnCloseSession);
   divHomePage.append(
-    btnCloseSession,
-    imgLogo,
+    topsection,
     message,
     formHome,
     labelTitle,
