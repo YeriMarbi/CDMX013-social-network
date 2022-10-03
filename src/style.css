@@ -32,7 +32,6 @@
         left: 35vh;
     }
 
-    /* 414x736 */
     #btnReturn {
         width: 300px;
     }
@@ -333,8 +332,7 @@
 
     #logoImgHome {
         width: 12vw;
-        opacity: 0.6;
-        align-self: flex-end;
+        opacity: 0.8;
     }
 
     #btn-post-save {
@@ -357,13 +355,13 @@
         height: 15vh;
         padding: 2.5vh;
         border-radius: 2vw;
-        background-color: #ffffff74;
+        background-color: #ffffff94;
         border: none;
         font-family: 'Quicksand', sans-serif;
     }
 
     .containerPost {
-        background-color: #ffffff60;
+        background-color: #ffffff94;
         width: 80vw;
         margin: 3.5vh;
         padding: 2.5vh;
@@ -381,10 +379,10 @@
     }
 
     .btn-delete {
-        background-image: url('./img/trash.png');
+        background-image: url('./img/deleteredondo.png');
         background-repeat: no-repeat;
         background-size: cover;
-        width: 3.5vh;
+        width: 4vh;
         height: 4vh;
         border: none;
         margin-left: 2vh;
@@ -394,7 +392,7 @@
     .modal-class {
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.481);
+        background-color: rgba(3, 9, 24, 0.678);
         top: 0;
         left: 0;
         position: fixed;
@@ -421,14 +419,14 @@
     }
 
     .btn-edit {
-        background-image: url('./img/edit.png');
+        background-image: url('./img/editexptwocolors.png');
         background-repeat: no-repeat;
         background-size: cover;
-        width: 3.5vh;
-        height: 3.5vh;
+        width: 4vh;
+        height: 4vh;
         border: none;
         background-color: transparent;
-        padding-bottom:  -3vh;
+        padding-bottom: -3vh;
     }
 
     .btn-like {
@@ -447,49 +445,58 @@
 
     .showEmail {
         color: #031719;
-        font-style: italic;
-        font-size: 2vh;
+        font-size: 1.1em;
         font-weight: bolder;
         grid-row: row 1;
         margin: 0;
-        justify-self: flex-end;
     }
 
     .textInPost {
         grid-row: row 2;
-        font-size: 1.2em;
-        margin:1vh 0;
-    }
-
-    h4 {
-        margin: -15px 0px 10px 0px;
+        font-size: 1em;
+        margin: 1.2vh 0;
+        font-weight: lighter;
     }
 
     .closeSession {
         background-image: url('./img/singOut.png');
         background-repeat: no-repeat;
-        background-size: cover;
         border: none;
-        width: 10vw;
-        height: 8vh;
+        width: 20vw;
+        height: 6vh;
         background-color: transparent;
         opacity: 0.7;
-        margin:2vw;
+        color: rgb(13, 25, 56);
+        font-family: 'Quicksand', sans-serif;
+        background-size: 8vw;
+        text-align: right;
+        font-weight: bolder;
+        font-size: 1.2em;
+        align-self: center;
     }
 
     .topSection {
         width: 100%;
+        justify-content: center;
         display: flex;
         justify-content: space-between;
     }
 
     h1 {
-        margin-top: 0;
+        margin:3vw;
+        color: #193B5C;
+        font-size: 1.1em;
+        font-weight: bolder;
+        text-align: center;
+        background-color: #ffffff94;
+        padding:3vw ;
+        border-radius: 8px;
+
     }
 
-    .editAndDeletePosts{
+    .editAndDeletePosts {
         position: absolute;
         grid-row: row 3;
-        left: 3.6vw;
+        left: 58vw;
     }
 }

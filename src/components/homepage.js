@@ -59,11 +59,12 @@ export const homepage = () => {
   imgLogo.src = './img/logo.png';
   imgLogo.setAttribute('id', 'logoImgHome');
   const btnCloseSession = document.createElement('button');
-  btnCloseSession.textContent = 'Cerrar Sesion';
+  btnCloseSession.textContent = 'Salir';
   btnCloseSession.className = 'closeSession';
   const divHomePage = document.createElement('div');
   divHomePage.className = 'homePage';
   const message = document.createElement('h1');
+  message.textContent = `Bienvenidx, ${emailUser}`;
   const formHome = document.createElement('div');
   formHome.className = 'homePage';
   formHome.id = 'post-form';
@@ -80,9 +81,7 @@ export const homepage = () => {
   btnPost.id = 'btn-post-save';
   const messageErrorPost = document.createElement('p');
   messageErrorPost.className = 'messageError';
-  message.textContent = 'Bienvenidx';
-  const welcomeUser = document.createElement('h4');
-  welcomeUser.textContent = emailUser;
+
   btnPost.innerText = 'Publicar';
   const containerBtnPosts = document.createElement('section');
   containerBtnPosts.className = 'containerBtnPosts';
@@ -111,7 +110,6 @@ export const homepage = () => {
       const emailString = emailUser.toString();
 
       if (user === emailString) {
-       // containerBtnPosts.innerHTML = '';
         const editAndDeletePosts = document.createElement('section');
         editAndDeletePosts.className = 'editAndDeletePosts';
         const editBtn = document.createElement('button');
@@ -125,7 +123,6 @@ export const homepage = () => {
       }
 
       likeBtn.addEventListener('click', async (e) => {
-        console.log(collectionPost.likes.includes(emailString));
         if (collectionPost.likes.includes(emailString)) {
           await dislikesPost(e.target.data);
         } else {
@@ -180,14 +177,10 @@ export const homepage = () => {
       btnPost.innerText = 'Guardar';
     });
   });
-  topsection.append(
-    btnCloseSession,
-    imgLogo,
-  );
+  topsection.append(imgLogo, btnCloseSession);
   divHomePage.append(
     topsection,
     message,
-    welcomeUser,
     formHome,
     labelTitle,
     labelDescription,
