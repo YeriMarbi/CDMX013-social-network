@@ -1,7 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@300&family=Liu+Jian+Mao+Cao&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Yantramanav:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap');
 
 @media only screen and (min-width: 1000px) {
     body {
@@ -332,7 +330,7 @@
 
     #logoImgHome {
         width: 12vw;
-        opacity: 0.8;
+        opacity: 0.6;
     }
 
     #btn-post-save {
@@ -406,16 +404,19 @@
         padding: 5vh;
         border-radius: 5px;
         width: 50vw;
+        font-style: normal;
     }
 
     .btnCancel,
     .btnok {
-        width: 18vw;
+        width: 20vw;
         padding: 2vh;
         background-color: #40888E;
         border: none;
         margin: 1vh;
-        color: aliceblue
+        color: aliceblue;
+        text-align: center;
+        font-size: 0.75em;
     }
 
     .btn-edit {
@@ -445,7 +446,7 @@
 
     .showEmail {
         color: #031719;
-        font-size: 1.1em;
+        font-size: 1em;
         font-weight: bolder;
         grid-row: row 1;
         margin: 0;
@@ -465,13 +466,13 @@
         width: 20vw;
         height: 6vh;
         background-color: transparent;
-        opacity: 0.7;
+        opacity: 0.9;
         color: rgb(13, 25, 56);
-        font-family: 'Quicksand', sans-serif;
+        font-family: 'Quicksand';
         background-size: 8vw;
         text-align: right;
         font-weight: bolder;
-        font-size: 1.2em;
+        font-size: 0.9em;
         align-self: center;
     }
 
@@ -497,6 +498,6 @@
     .editAndDeletePosts {
         position: absolute;
         grid-row: row 3;
-        left: 58vw;
+        left: 55vw;
     }
 }

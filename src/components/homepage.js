@@ -59,12 +59,12 @@ export const homepage = () => {
   imgLogo.src = './img/logo.png';
   imgLogo.setAttribute('id', 'logoImgHome');
   const btnCloseSession = document.createElement('button');
-  btnCloseSession.textContent = 'Salir';
+  btnCloseSession.textContent = 'SALIR';
   btnCloseSession.className = 'closeSession';
   const divHomePage = document.createElement('div');
   divHomePage.className = 'homePage';
   const message = document.createElement('h1');
-  message.textContent = `Bienvenidx, ${emailUser}`;
+  message.textContent = `¡Bienvenidx, ${emailUser}!`;
   const formHome = document.createElement('div');
   formHome.className = 'homePage';
   formHome.id = 'post-form';
