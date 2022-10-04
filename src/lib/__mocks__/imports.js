@@ -1,4 +1,4 @@
-export const getAuth = () => jest.fn;
+import {getAuth} from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js';
 export const signInWithPopup = () => jest.fn;
 export const GoogleAuthProvider = () => jest.fn;
 export const createUserWithEmailAndPassword = () => jest.fn;

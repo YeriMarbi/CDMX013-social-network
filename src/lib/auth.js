@@ -29,6 +29,7 @@ export const savePost = (post) => {
 const order = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), limit(10));
 
 export const onGetPost = (callback) => onSnapshot(order, callback);
+
 export const emailUser = [];
 export const loginStateUser = () => {
   onAuthStateChanged(auth, (user) => {
