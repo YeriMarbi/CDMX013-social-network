@@ -12,7 +12,7 @@ export const welcome = () => {
   const buttonSignIn = document.createElement('button');
   buttonSignIn.className = 'btnSignIn';
   const title = document.createElement('img');
-  title.src = './img/comuniapp.png';
+  title.src = './img/comuniApp.png';
   title.className = 'nameApp';
   const subtitle = document.createElement('h2');
   const description = document.createElement('p');
