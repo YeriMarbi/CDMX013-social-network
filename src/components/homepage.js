@@ -143,6 +143,7 @@ export const homepage = () => {
         editStatus = true;
         id = postId.id;
         btnPost.innerText = 'Guardar';
+        topsection.scrollIntoView(true);
       });
     });
 
