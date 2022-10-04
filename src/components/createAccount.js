@@ -20,13 +20,11 @@ const validateAndRecord = (e) => {
   }
 
   register(emailValue, passwordValue)
-    .then((userCredential) => {
-      const user = userCredential.user;
+    .then(() => {
       onNavigate('/homepage');
     })
     .catch((error) => {
       const errorCode = error.code;
-      const errorMessage = error.message;
 
       if (errorCode === 'auth/email-already-in-use') {
         messageError.innerHTML = 'Este correo ya está registrado';
