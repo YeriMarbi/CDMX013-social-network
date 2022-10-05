@@ -1,11 +1,9 @@
+/* eslint-disable max-len */
 import {
   getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword,
-  signInWithEmailAndPassword, onAuthStateChanged, signOut,
-} from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js';
-import {
-  getFirestore, collection, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp, getDoc, doc,
+  signInWithEmailAndPassword, onAuthStateChanged, signOut, getFirestore, collection, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp, getDoc, doc,
   updateDoc, deleteDoc, arrayUnion, arrayRemove,
-} from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-firestore.js';
+} from './imports.js';
 import { onNavigate } from '../main.js';
 import { app } from './firebase.js';
 
@@ -30,14 +28,14 @@ const order = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), limit
 
 export const onGetPost = (callback) => onSnapshot(order, callback);
 
-export const emailUser = [];
+export let emailUser = '';
 export const loginStateUser = () => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       const uid = user.uid;
       console.log('uid', uid);
       const email = user.email;
-      emailUser.push(email);
+      emailUser = email;
       console.log('Existe un usuario activo', uid, email);
       onNavigate('/homepage');
     } else {
