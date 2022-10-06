@@ -2,16 +2,10 @@
 import { onNavigate } from '../main.js';
 import { register } from '../lib/auth.js';
 
-const validateAndRecord = (e) => {
-  const messageError = document.getElementById('messageError');
-  const messageErrorPassword = document.getElementById('messageErrorPassword');
-
+const validateAndRecord = (e, messageError, messageErrorPassword, emailValue, passwordValue) => {
   e.preventDefault();
   messageError.innerHTML = '';
   messageErrorPassword.innerHTML = '';
-
-  const emailValue = document.getElementById('inputEmail').value;
-  const passwordValue = document.getElementById('inputPassword').value;
 
   if (emailValue === '') {
     messageError.innerHTML = 'Ingresa un correo electrónico';
@@ -69,7 +63,9 @@ export const createAccount = () => {
     onNavigate('/');
   });
 
-  sendButton.addEventListener('click', validateAndRecord);
+  sendButton.addEventListener('click', (e) => {
+    validateAndRecord(e, messageError, messageErrorPassword, inputEmail.value, inputPassword.value);
+  });
 
   divcreateAccount.append(returnButton, imgLogo, email, inputEmail, messageError, password, inputPassword, messageErrorPassword, sendButton);
   return divcreateAccount;
